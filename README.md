@@ -1,58 +1,56 @@
-# Cofrinho.exe — Web v0.4.1
+# Nervi — Cofrinho.exe Web v0.4.2
 
-Correção da v0.4 para GitHub Pages.
+Ajustes finais de identidade e interface sobre a base Beta 0.4.
 
-## Por que existe esta versão
+## Novidades
 
-O repositório podia acabar com arquivos de versões diferentes ao mesmo tempo, por exemplo:
+### Identidade Nervi
 
-- `index.html` novo;
-- `style.css` novo;
-- `app.js` antigo.
+A plataforma passa a mostrar **Nervi** como marca visual, mantendo o **Cofrinho.exe** como produto financeiro.
 
-Nesse caso, os controles aparecem na tela, mas não funcionam.
+O título superior é dinâmico:
 
-A v0.4.1 evita isso usando nomes novos:
+`Nome do usuário - Plataforma Nervi`
 
-- `style-v041.css`
-- `app-v041.js`
+Enquanto o nome ainda não foi digitado:
 
-O `index.html` aponta especificamente para esses dois arquivos.
+`Usuário - Plataforma Nervi`
 
-## O que funciona
+### Foto de perfil em destaque
 
-- tema **Claro**: mostarda suave + vermelho;
-- tema **Escuro**: vinho + mostarda;
-- tema salvo no navegador;
-- foto de perfil recolhível;
-- foto por **arquivo do dispositivo**;
-- foto por **link direto online**;
-- seletor de mês;
-- prioridades Essencial / Importante / Flexível;
-- vencimento opcional;
-- edição mensal dos gastos previstos;
-- pagamento com valor real;
-- previsto x realizado;
-- livre de verdade;
-- backup e integridade.
+A foto agora aparece com mais destaque no bloco **Perfil**, no lugar do antigo ícone/emoji de pessoa.
 
-## Como subir no GitHub
+A seção detalhada de foto continua recolhível e mantém apenas:
 
-Envie para a raiz do repositório:
+- arquivo do dispositivo;
+- link direto online.
 
-1. `index.html`
-2. `style-v041.css`
-3. `app-v041.js`
-4. `README.md`
+### Compartilhar projeto
 
-Você NÃO precisa apagar `app.js` ou `style.css` antigos. O novo `index.html` não usa mais esses arquivos.
+Os três pontos do topo agora abrem um menu com:
 
-Depois faça **Commit changes** e espere o GitHub Pages terminar o deployment.
+- **Compartilhar projeto**
+- **Copiar link**
 
-Para confirmar visualmente que a versão nova carregou, o cabeçalho deve mostrar:
+Em dispositivos/navegadores com Web Share API, o botão de compartilhar abre o compartilhamento nativo. Caso contrário, o Cofrinho copia o link.
 
-`Cofrinho.exe — WEB v0.4.1`
+### Versão pública
 
-## Dados
+O selo **dados locais** foi substituído visualmente por:
 
-A v0.4.1 continua usando a mesma chave local da v0.4, então não cria uma base separada só por causa dessa correção.
+**Versão Beta 0.4**
+
+Os dados financeiros continuam armazenados localmente no navegador.
+
+## Arquivos para o GitHub
+
+Suba para a raiz:
+
+- `index.html`
+- `style-v042.css`
+- `app-v042.js`
+- `README.md`
+
+Mantenha `.nojekyll`.
+
+O `index.html` desta versão usa nomes novos de CSS e JavaScript para reduzir problemas de cache ou mistura de versões.

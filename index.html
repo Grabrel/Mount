@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#B3261E">
-  <title>Cofrinho.exe</title>
+  <title>Nervi — Cofrinho.exe</title>
   <script>
     try {
       document.documentElement.dataset.theme = localStorage.getItem("cofrinho_theme") || "light";
@@ -12,7 +12,7 @@
       document.documentElement.dataset.theme = "light";
     }
   </script>
-  <link rel="stylesheet" href="./style-v041.css?v=041">
+  <link rel="stylesheet" href="./style-v042.css?v=042">
 </head>
 <body>
   <noscript>O Cofrinho.exe precisa de JavaScript habilitado.</noscript>
@@ -21,14 +21,21 @@
     <section id="setupScreen" class="screen hidden" aria-labelledby="setupTitle">
       <div class="window hero-window">
         <div class="titlebar">
-          <span id="setupTitle">NOVO PERFIL — configuração inicial</span>
-          <span class="window-controls">● ● ●</span>
+          <span id="setupTitle">Usuário - Plataforma Nervi</span>
+          <details class="window-menu-details">
+            <summary aria-label="Abrir menu">•••</summary>
+            <div class="window-menu-popover">
+              <button class="menu-action share-project" type="button">↗ Compartilhar projeto</button>
+              <button class="menu-action copy-project-link" type="button">⧉ Copiar link</button>
+            </div>
+          </details>
         </div>
 
         <div class="window-body">
           <div class="brand-row">
-            <div>
-              <h1>Cofrinho.exe</h1>
+            <div class="brand-lockup">
+              <div class="nervi-wordmark">Nervi</div>
+              <div class="product-mark">Cofrinho.exe</div>
               <p>Planejamento financeiro local, simples e direto.</p>
             </div>
             <div class="brand-actions">
@@ -36,13 +43,19 @@
                 <button type="button" data-theme-choice="light">☀ Claro</button>
                 <button type="button" data-theme-choice="dark">☾ Escuro</button>
               </div>
-              <div class="status-pill">● dados locais</div>
+              <div class="status-pill beta-badge">Versão Beta 0.4</div>
             </div>
           </div>
 
           <div class="setup-grid">
-            <section class="panel">
-              <h2>👤 Perfil</h2>
+            <section class="panel profile-panel">
+              <div class="profile-panel-heading">
+                <div id="setupProfilePhotoHero" class="profile-hero-photo"></div>
+                <div>
+                  <h2>Perfil</h2>
+                  <span class="muted">Sua identidade na plataforma Nervi.</span>
+                </div>
+              </div>
               <label>Nome de usuário<input id="setupUsername" autocomplete="off" maxlength="40" placeholder="Ex.: Gabriel"></label>
               <label>Renda líquida mensal<input id="setupIncome" type="number" min="0" step="0.01" value="0"></label>
               <label>Dia de pagamento<input id="setupPayday" type="number" min="1" max="31" value="5"></label>
@@ -65,7 +78,7 @@
           <details id="setupPhotoDetails" class="panel collapsible-panel">
             <summary>
               <div class="summary-copy">
-                <strong>🖼 Foto de perfil</strong>
+                <strong>Foto de perfil</strong>
                 <span>Opcional — clique para escolher ou trocar.</span>
               </div>
               <div id="setupPhotoCompact" class="compact-photo"></div>
@@ -102,8 +115,14 @@
     <section id="mainScreen" class="screen hidden">
       <header class="window app-header">
         <div class="titlebar">
-          <span>💾 Cofrinho.exe — WEB v0.4.1</span>
-          <span class="window-controls">● ● ●</span>
+          <span id="mainPlatformTitle">Usuário - Plataforma Nervi</span>
+          <details class="window-menu-details">
+            <summary aria-label="Abrir menu">•••</summary>
+            <div class="window-menu-popover">
+              <button class="menu-action share-project" type="button">↗ Compartilhar projeto</button>
+              <button class="menu-action copy-project-link" type="button">⧉ Copiar link</button>
+            </div>
+          </details>
         </div>
         <div class="header-body">
           <div id="headerIdentity" class="header-identity"></div>
@@ -134,7 +153,7 @@
             <button class="nav-button" data-view="goal">🎯 Minha meta</button>
             <button class="nav-button" data-view="history">📜 Histórico</button>
             <button class="nav-button" data-view="settings">⚙ Configurações</button>
-            <div class="sidebar-status"><strong>STATUS</strong><span class="online">● Dados locais</span><small>Nenhum dado financeiro é enviado pelo Cofrinho.exe.</small></div>
+            <div class="sidebar-status"><strong>STATUS</strong><span class="beta-status">Versão Beta 0.4</span><small>Seus dados financeiros continuam armazenados localmente no navegador.</small></div>
           </div>
         </aside>
         <section id="content" class="content"></section>
@@ -156,6 +175,6 @@
     </form>
   </dialog>
 
-  <script src="./app-v041.js?v=041"></script>
+  <script src="./app-v042.js?v=042"></script>
 </body>
 </html>
