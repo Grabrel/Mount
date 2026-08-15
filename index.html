@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#C39A32">
+  <meta name="theme-color" content="#1E40AF">
   <title>Cofrinho.exe</title>
   <link rel="stylesheet" href="./style.css">
 </head>
@@ -12,17 +12,17 @@
 
   <main id="app" class="app-shell">
     <section id="setupScreen" class="screen hidden" aria-labelledby="setupTitle">
-      <div class="window">
+      <div class="window hero-window">
         <div class="titlebar">
           <span id="setupTitle">NOVO PERFIL — configuração inicial</span>
-          <span class="window-controls">_ □ ×</span>
+          <span class="window-controls">● ● ●</span>
         </div>
 
-        <div class="window-body">
-          <div class="brand-row">
+        <div class="window-body clean-body">
+          <div class="brand-row clean-brand-row">
             <div>
               <h1>Cofrinho.exe</h1>
-              <p>Planejamento financeiro local, com cara de programa dos anos 2000.</p>
+              <p>Planejamento financeiro local, simples e direto.</p>
             </div>
             <div class="status-pill">● dados locais</div>
           </div>
@@ -33,12 +33,7 @@
 
               <label>
                 Nome de usuário
-                <input id="setupUsername" autocomplete="off" maxlength="40" placeholder="Ex.: Lucas">
-              </label>
-
-              <label>
-                Avatar
-                <input id="setupAvatar" value="🙂" maxlength="4">
+                <input id="setupUsername" autocomplete="off" maxlength="40" placeholder="Ex.: Gabriel">
               </label>
 
               <label>
@@ -87,8 +82,18 @@
           <section class="panel">
             <div class="panel-heading-row">
               <div>
+                <h2>🖼 Avatar</h2>
+                <p class="muted">Escolha um avatar pronto, use emoji, envie um arquivo ou use um link direto.</p>
+              </div>
+            </div>
+            <div id="setupAvatarPicker"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-heading-row">
+              <div>
                 <h2>📋 Gastos previstos</h2>
-                <p class="muted">Cadastre os compromissos que normalmente aparecem todo mês. Você pode adicionar mais depois.</p>
+                <p class="muted">Cadastre compromissos que costumam aparecer todos os meses.</p>
               </div>
               <button id="setupAddPlanned" class="button secondary" type="button">+ Adicionar</button>
             </div>
@@ -128,13 +133,10 @@
       <header class="window app-header">
         <div class="titlebar">
           <span>💾 Cofrinho.exe — WEB</span>
-          <span class="window-controls">_ □ ×</span>
+          <span class="window-controls">● ● ●</span>
         </div>
-        <div class="header-body">
-          <div class="header-user">
-            <strong id="headerUser">🙂 Usuário</strong>
-            <span class="online">● dados locais</span>
-          </div>
+        <div class="header-body clean-body">
+          <div id="headerIdentity" class="header-identity"></div>
 
           <div class="month-nav" aria-label="Selecionar mês">
             <button id="prevMonthBtn" class="month-button" type="button" title="Mês anterior">◀</button>
@@ -153,7 +155,7 @@
       <div class="workspace">
         <aside class="window sidebar">
           <div class="titlebar">MENU</div>
-          <div class="sidebar-body">
+          <div class="sidebar-body clean-body">
             <button class="nav-button active" data-view="dashboard">🏠 Início</button>
             <button class="nav-button" data-view="planning">📋 Planejamento</button>
             <button class="nav-button" data-view="expense">💸 Registrar gasto</button>
@@ -178,7 +180,7 @@
   <dialog id="confirmDialog" class="retro-dialog">
     <form method="dialog">
       <div class="titlebar">CONFIRMAR</div>
-      <div class="dialog-body">
+      <div class="dialog-body clean-body">
         <p id="confirmText"></p>
         <div class="dialog-actions">
           <button value="cancel" class="button secondary">Cancelar</button>
@@ -194,7 +196,7 @@
         <span id="formDialogTitle">EDITAR</span>
         <button id="formDialogClose" class="dialog-close" type="button" aria-label="Fechar">×</button>
       </div>
-      <div id="formDialogBody" class="dialog-body"></div>
+      <div id="formDialogBody" class="dialog-body clean-body"></div>
     </form>
   </dialog>
 

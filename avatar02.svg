@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-label="avatar retro">
+  <rect width="128" height="128" rx="18" fill="#457B9D"/>
+  <rect x="10" y="10" width="108" height="108" rx="14" fill="#F1FAEE" opacity="0.18"/>
+  <ellipse cx="64" cy="95" rx="34" ry="22" fill="#A8DADC"/>
+  <circle cx="64" cy="52" r="28" fill="#D9B08C"/>
+  <path d="M36 48c4-18 18-29 31-29 17 0 29 10 32 28-6-5-13-8-20-8H51c-6 0-10 2-15 9Z" fill="#6B4F3A"/>
+  <circle cx="54" cy="54" r="3.3" fill="#222"/>
+  <circle cx="74" cy="54" r="3.3" fill="#222"/>
+  <path d="M53 68c7 7 16 7 22 0" stroke="#7A3D2E" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <circle cx="47" cy="61" r="3" fill="#E59A86" opacity="0.55"/>
+  <circle cx="81" cy="61" r="3" fill="#E59A86" opacity="0.55"/>
+  
+</svg>

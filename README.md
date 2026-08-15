@@ -1,98 +1,63 @@
-# Cofrinho.exe — Web v0.2
+# Cofrinho.exe — Web v0.3
 
-Versão estática para GitHub Pages. Não requer Python, servidor ou banco online.
+Versão estática para GitHub Pages, com layout mais limpo em azul e vermelho.
 
-## Novidades da v0.2
+## Novidades da v0.3
 
-### Prioridades com nomes definitivos
+### Novo visual
 
-- **Essencial**
-- **Importante**
-- **Flexível**
+- interface mais limpa;
+- paleta azul + vermelho;
+- mesmos recursos financeiros da v0.2 preservados.
 
-### Vencimento opcional
+### Avatares
 
-Cada gasto previsto pode ter:
+Agora cada pessoa pode escolher o avatar de quatro formas:
 
-- nome;
-- categoria;
-- valor previsto;
-- prioridade;
-- dia de vencimento de 1 a 31;
-- ou nenhum vencimento fixo.
+1. **avatares prontos** incluídos no projeto;
+2. **emoji**;
+3. **arquivo do computador**;
+4. **link direto online**.
 
-Status:
+Os avatares incluídos nesta pasta (`assets/avatars/`) são **originais do projeto**, então você pode usar no Cofrinho sem depender de imagens proprietárias de terceiros.
 
-- **Previsto**
-- **Vence hoje**
-- **Atrasado**
-- **Pago**
+#### Observações sobre avatar por arquivo
 
-Se o vencimento for dia 31 e o mês tiver menos dias, o sistema usa automaticamente o último dia do mês.
+- o arquivo é redimensionado no navegador;
+- depois fica salvo localmente junto com os demais dados do usuário.
 
-A **data real do pagamento** é armazenada separadamente do vencimento.
+#### Observações sobre avatar por link
 
-### Seletor de mês
+- o navegador tentará carregar a imagem a partir da URL informada;
+- se o link sair do ar, o avatar pode deixar de aparecer;
+- use somente imagens que você possa utilizar.
 
-O cabeçalho agora permite navegar entre meses.
+## Recursos mantidos da v0.2
 
-Agosto, setembro, outubro etc. mantêm seus movimentos separados. Voltar para um mês anterior não apaga o que aconteceu nele.
+- prioridades: **Essencial, Importante e Flexível**;
+- gasto previsto com vencimento opcional;
+- seletor de mês;
+- previsão editável por versão mensal;
+- pagamento com valor real e data real;
+- observações de **previsto x realizado**;
+- dashboard com **livre de verdade**;
+- exportação/importação de backup;
+- verificação de integridade com cadeia SHA-256.
 
-### Previsões versionadas
+## Publicar / atualizar no GitHub Pages
 
-Um gasto previsto pode ser editado.
-
-Exemplo:
-
-- agosto: Academia prevista em R$ 120;
-- setembro: passa para R$ 130.
-
-A edição feita em setembro vale de setembro em diante. Agosto continua mostrando R$ 120.
-
-O histórico financeiro real continua imutável.
-
-### Valor previsto x valor real
-
-Ao clicar em **✓ Pago**, o aplicativo pede:
-
-- valor real pago;
-- data real do pagamento.
-
-Exemplo:
-
-- energia prevista: R$ 150;
-- energia paga: R$ 137,84;
-- observação: **R$ 12,16 abaixo do previsto**.
-
-O dashboard e o histórico mostram essa diferença.
-
-### Livre de verdade
-
-O dashboard exibe uma mensagem no formato:
-
-> Você tem R$ X disponíveis no mês, mas R$ Y ainda estão comprometidos. Livre de verdade: R$ Z.
-
-## Atualizar o GitHub Pages
-
-Substitua na raiz do repositório:
+No mesmo repositório, substitua:
 
 - `index.html`
 - `style.css`
 - `app.js`
 - `README.md`
+- pasta `assets/`
 
 Mantenha também `.nojekyll`.
 
-Depois faça o commit. Como o GitHub Pages já está configurado para `main / (root)`, o site será publicado novamente automaticamente.
+Depois faça commit. Se o Pages já estiver configurado em `main / (root)`, o site será atualizado automaticamente.
 
-## Migração da v0.1
+## Migração
 
-A v0.2 procura primeiro seus dados na chave nova. Se não encontrar, tenta carregar automaticamente os dados salvos pela Web v0.1 no mesmo navegador e endereço do site.
-
-Por isso, mantenha o mesmo repositório/URL durante a atualização se quiser preservar os dados locais existentes.
-
-## Privacidade
-
-Os dados ficam no `localStorage` do navegador. O repositório do GitHub contém somente o código do site.
-
-Faça backups pelo menu **Configurações → Exportar backup JSON**.
+A v0.3 tenta aproveitar automaticamente dados salvos das versões v0.2 e v0.1 no mesmo navegador e no mesmo endereço.
