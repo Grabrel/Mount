@@ -12,7 +12,7 @@
       document.documentElement.dataset.theme = "light";
     }
   </script>
-  <link rel="stylesheet" href="./style-v052.css?v=052">
+  <link rel="stylesheet" href="./style-v060.css?v=060">
 </head>
 <body>
   <noscript>O Cofrinho.exe precisa de JavaScript habilitado.</noscript>
@@ -58,7 +58,7 @@
           </form>
 
           <div class="login-footer">
-            <span>Versão Beta 0.5</span>
+            <span>Versão Beta 0.6</span>
             <button class="login-help how-it-works" type="button">?</button>
           </div>
         </div>
@@ -91,7 +91,7 @@
                 <button type="button" data-theme-choice="light">☀ Claro</button>
                 <button type="button" data-theme-choice="dark">☾ Escuro</button>
               </div>
-              <div class="status-pill beta-badge">Versão Beta 0.5</div>
+              <div class="status-pill beta-badge">Versão Beta 0.6</div>
             </div>
           </div>
 
@@ -106,7 +106,7 @@
               </div>
               <label>Nome de usuário
                 <input id="setupUsername" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="40" placeholder="Ex.: gabriel">
-                <small class="field-help">Este será seu nome de acesso. Ele é único na Nervi; “Gabriel” e “gabriel” contam como o mesmo usuário.</small>
+                <small class="field-help">Este será seu nome de acesso em qualquer dispositivo. Ele é único na Nervi; “Gabriel” e “gabriel” contam como o mesmo usuário.</small>
               </label>
               <label>Senha de acesso<input id="setupPassword" type="password" autocomplete="new-password" maxlength="128" placeholder="Mínimo de 6 caracteres"></label>
               <label>Confirmar senha<input id="setupPasswordConfirm" type="password" autocomplete="new-password" maxlength="128" placeholder="Digite a senha novamente"></label>
@@ -179,7 +179,7 @@
           <div id="setupError" class="message error hidden"></div>
           <div class="setup-final-actions">
             <button id="backToLogin" class="button secondary" type="button">← Voltar para entrar</button>
-            <button id="setupCreate" class="button primary" type="button">Criar conta</button>
+            <button id="setupCreate" class="button primary" type="button">Criar conta na Nervi</button>
           </div>
         </div>
       </div>
@@ -232,7 +232,11 @@
             <button class="nav-button" data-view="goal">🎯 Minha meta</button>
             <button class="nav-button" data-view="history">📜 Histórico</button>
             <button class="nav-button" data-view="settings">⚙ Configurações</button>
-            <div class="sidebar-status"><strong>STATUS</strong><span class="beta-status">Versão Beta 0.5</span><small>Seus dados financeiros continuam armazenados localmente no navegador.</small></div>
+            <div class="sidebar-status">
+              <strong>STATUS</strong>
+              <span id="cloudStatusText" class="beta-status cloud-online">✓ Nervi Cloud</span>
+              <small id="cloudStatusDetail">Sincronização entre dispositivos ativa.</small>
+            </div>
           </div>
         </aside>
         <section id="content" class="content"></section>
@@ -254,6 +258,7 @@
     </form>
   </dialog>
 
-  <script src="./app-v052.js?v=052"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="./app-v060.js?v=060"></script>
 </body>
 </html>

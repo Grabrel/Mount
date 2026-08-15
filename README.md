@@ -1,52 +1,72 @@
-# Nervi — Cofrinho.exe Web v0.5.2
+# Nervi — Cofrinho.exe Web v0.6
 
-## Usuário único
+A v0.6 conecta a Nervi ao Supabase e transforma o perfil local em uma conta sincronizada.
 
-A base Supabase já possui um índice único case-insensitive em `profiles.username`.
+## Login
 
-Isso significa que nomes como:
+A interface continua mostrando somente:
 
-- `gabriel`
-- `Gabriel`
-- `GABRIEL`
+- Usuário
+- Senha
+- Entrar
+- Criar conta
 
-são tratados como o mesmo nome de acesso e não poderão existir em contas diferentes quando o cadastro em nuvem estiver conectado.
+O usuário não precisa informar e-mail nem telefone.
 
-A interface também deixa essa regra explícita no cadastro.
+Internamente a Nervi gera um identificador de autenticação a partir do nome de usuário e usa Supabase Auth com senha.
 
-## Reserva automática calculada
+## Criar conta
 
-O usuário não digita mais manualmente a reserva mensal.
+Ao clicar em **Criar conta na Nervi**:
 
-A Nervi calcula:
+1. a Edge Function `nervi-create-account` cria o usuário no Supabase Auth;
+2. o estado financeiro inicial é salvo em `cofrinho_state`;
+3. o banco atualiza `profiles` e `goal_cycles`;
+4. a sessão é iniciada e a conta é carregada da nuvem.
 
-`valor-alvo ÷ duração da meta`
+A chave administrativa do Supabase não fica no GitHub Pages. O navegador usa apenas a Publishable Key.
 
-e mostra o resultado em reais antes da criação da conta.
+## Usuários únicos
 
-Exemplo:
+O mesmo usuário não pode ser criado duas vezes.
 
-- Meta: R$ 500,00
-- Duração: 6 meses
-- 5 aportes: R$ 83,33
-- Último aporte: R$ 83,35
-- Total: R$ 500,00
+Maiúsculas/minúsculas são normalizadas no acesso, portanto `Gabriel` e `gabriel` representam o mesmo login.
 
-Os centavos do último aporte são ajustados automaticamente para que a meta feche exatamente.
+## Sincronização entre dispositivos
 
-Se a reserva mensal necessária superar a renda líquida informada, a criação do ciclo é bloqueada e a Nervi orienta aumentar a duração ou reduzir o valor-alvo.
+Depois do login, cada alteração é salva:
 
-## GitHub Pages
+- no `localStorage`, como cache deste navegador;
+- no `cofrinho_state`, como estado oficial sincronizado.
 
-Envie para a raiz do repositório Nervi:
+Ao entrar em outro dispositivo com o mesmo usuário e senha, a Nervi baixa o estado da conta no Supabase.
+
+## Migração automática das versões v0.5.x
+
+Se existe uma conta criada localmente na v0.5.x, tente entrar na v0.6 usando o mesmo usuário e senha.
+
+Se a credencial local for válida e o usuário ainda não existir na Nervi Cloud, a conta é criada no Supabase e o estado local é enviado automaticamente.
+
+## Banco
+
+- `profiles`: identidade e dados principais do perfil
+- `goal_cycles`: ciclos das metas
+- `cofrinho_state`: estado financeiro sincronizado
+- RLS por `user_id`
+- travas dos dados do ciclo no banco
+- reserva mensal calculada automaticamente
+
+## Publicação
+
+Suba na raiz do repositório Nervi:
 
 - `index.html`
-- `style-v052.css`
-- `app-v052.js`
+- `style-v060.css`
+- `app-v060.js`
 - `README.md`
 
 Mantenha `.nojekyll`.
 
-Endereço público:
+Site:
 
 `https://grabrel.github.io/Nervi/`
