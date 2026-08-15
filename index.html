@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#C39A32">
+  <title>Cofrinho.exe</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <noscript>O Cofrinho.exe precisa de JavaScript habilitado.</noscript>
+
+  <main id="app" class="app-shell">
+    <section id="setupScreen" class="screen hidden" aria-labelledby="setupTitle">
+      <div class="window">
+        <div class="titlebar">
+          <span id="setupTitle">NOVO PERFIL — configuração inicial</span>
+          <span class="window-controls">_ □ ×</span>
+        </div>
+
+        <div class="window-body">
+          <div class="brand-row">
+            <div>
+              <h1>Cofrinho.exe</h1>
+              <p>Planejamento financeiro local, com cara de programa dos anos 2000.</p>
+            </div>
+            <div class="status-pill">● offline/local</div>
+          </div>
+
+          <div class="setup-grid">
+            <section class="panel">
+              <h2>👤 Perfil</h2>
+
+              <label>
+                Nome de usuário
+                <input id="setupUsername" autocomplete="off" maxlength="40" placeholder="Ex.: Lucas">
+              </label>
+
+              <label>
+                Avatar
+                <input id="setupAvatar" value="🙂" maxlength="4">
+              </label>
+
+              <label>
+                Renda líquida mensal
+                <input id="setupIncome" type="number" min="0" step="0.01" value="0">
+              </label>
+
+              <label>
+                Dia de pagamento
+                <input id="setupPayday" type="number" min="1" max="31" value="5">
+              </label>
+            </section>
+
+            <section class="panel">
+              <h2>🎯 Meta obrigatória</h2>
+
+              <label>
+                Nome da meta
+                <input id="setupGoalName" value="Minha reserva" maxlength="80">
+              </label>
+
+              <label>
+                Categoria
+                <select id="setupGoalCategory">
+                  <option>Emergência</option>
+                  <option>Reserva de segurança</option>
+                  <option>Objetivo pessoal</option>
+                  <option>Compra planejada</option>
+                  <option>Viagem</option>
+                  <option>Moradia</option>
+                </select>
+              </label>
+
+              <label>
+                Valor-alvo
+                <input id="setupGoalTarget" type="number" min="0.01" step="0.01" value="1000">
+              </label>
+
+              <label>
+                Reserva automática por mês
+                <input id="setupGoalMonthly" type="number" min="0" step="0.01" value="0">
+              </label>
+            </section>
+          </div>
+
+          <section class="panel">
+            <div class="panel-heading-row">
+              <div>
+                <h2>📋 Gastos previstos</h2>
+                <p class="muted">Cadastre os compromissos que normalmente aparecem todo mês. Você pode adicionar mais depois.</p>
+              </div>
+              <button id="setupAddPlanned" class="button secondary" type="button">+ Adicionar</button>
+            </div>
+
+            <div id="setupPlannedList" class="planned-editor-list"></div>
+          </section>
+
+          <section class="preview-box">
+            <div>
+              <span>Renda</span>
+              <strong id="setupPreviewIncome">R$ 0,00</strong>
+            </div>
+            <div>
+              <span>Caixinha</span>
+              <strong id="setupPreviewGoal">R$ 0,00</strong>
+            </div>
+            <div>
+              <span>Previstos</span>
+              <strong id="setupPreviewPlanned">R$ 0,00</strong>
+            </div>
+            <div>
+              <span>Livre previsto</span>
+              <strong id="setupPreviewFree">R$ 0,00</strong>
+            </div>
+          </section>
+
+          <div id="setupError" class="message error hidden"></div>
+
+          <div class="actions-right">
+            <button id="setupCreate" class="button primary" type="button">Criar perfil local</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mainScreen" class="screen hidden">
+      <header class="window app-header">
+        <div class="titlebar">
+          <span>💾 Cofrinho.exe — WEB</span>
+          <span class="window-controls">_ □ ×</span>
+        </div>
+        <div class="header-body">
+          <div>
+            <strong id="headerUser">🙂 Usuário</strong>
+            <span class="online">● local</span>
+          </div>
+          <div class="header-note">Seus dados ficam neste navegador.</div>
+        </div>
+      </header>
+
+      <div class="workspace">
+        <aside class="window sidebar">
+          <div class="titlebar">MENU</div>
+          <div class="sidebar-body">
+            <button class="nav-button active" data-view="dashboard">🏠 Início</button>
+            <button class="nav-button" data-view="planning">📋 Planejamento</button>
+            <button class="nav-button" data-view="expense">💸 Registrar gasto</button>
+            <button class="nav-button" id="registerIncomeBtn">💰 Registrar renda</button>
+            <button class="nav-button" data-view="goal">🎯 Minha meta</button>
+            <button class="nav-button" data-view="history">📜 Histórico</button>
+            <button class="nav-button" data-view="settings">⚙ Configurações</button>
+
+            <div class="sidebar-status">
+              <strong>STATUS</strong>
+              <span class="online">● Local</span>
+              <small>Nenhum dado financeiro é enviado pelo Cofrinho.exe.</small>
+            </div>
+          </div>
+        </aside>
+
+        <section id="content" class="content"></section>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="confirmDialog" class="retro-dialog">
+    <form method="dialog">
+      <div class="titlebar">CONFIRMAR</div>
+      <div class="dialog-body">
+        <p id="confirmText"></p>
+        <div class="dialog-actions">
+          <button value="cancel" class="button secondary">Cancelar</button>
+          <button id="confirmOk" value="default" class="button primary">Confirmar</button>
+        </div>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="./app.js"></script>
+</body>
+</html>
