@@ -1,56 +1,61 @@
-# Nervi — Cofrinho.exe Web v0.4.2
+# Nervi — Cofrinho.exe Web v0.5
 
-Ajustes finais de identidade e interface sobre a base Beta 0.4.
+A v0.5 acrescenta ciclos de meta, bloqueio dos dados principais e uma ajuda simples no menu de três pontos.
 
-## Novidades
+## Ciclo da meta
 
-### Identidade Nervi
+No cadastro a pessoa escolhe a duração da Meta obrigatória.
 
-A plataforma passa a mostrar **Nervi** como marca visual, mantendo o **Cofrinho.exe** como produto financeiro.
+Enquanto o ciclo estiver ativo, estes dados ficam bloqueados:
 
-O título superior é dinâmico:
+- nome de usuário;
+- renda líquida mensal;
+- dia de pagamento;
+- nome/categoria/valor-alvo/reserva mensal da meta;
+- data final da meta.
 
-`Nome do usuário - Plataforma Nervi`
+Quando o ciclo termina, a área **Minha meta** libera o botão **Iniciar novo ciclo**.
 
-Enquanto o nome ainda não foi digitado:
+O ciclo anterior é preservado no estado local e o novo ciclo passa a valer a partir da data de criação.
 
-`Usuário - Plataforma Nervi`
+## Ajuda
 
-### Foto de perfil em destaque
+Nos três pontos do canto superior existe:
 
-A foto agora aparece com mais destaque no bloco **Perfil**, no lugar do antigo ícone/emoji de pessoa.
+`? Como funciona?`
 
-A seção detalhada de foto continua recolhível e mantém apenas:
+A explicação é curta e cobre perfil, meta, bloqueio do ciclo, planejamento, pagamentos e notificações.
 
-- arquivo do dispositivo;
-- link direto online.
+## Notificações
 
-### Compartilhar projeto
+Mantidas da v0.4.3:
 
-Os três pontos do topo agora abrem um menu com:
+- até 3 dias antes por padrão;
+- vence amanhã;
+- vence hoje;
+- atrasado;
+- sino no cabeçalho;
+- preferências em Configurações.
 
-- **Compartilhar projeto**
-- **Copiar link**
+## Supabase
 
-Em dispositivos/navegadores com Web Share API, o botão de compartilhar abre o compartilhamento nativo. Caso contrário, o Cofrinho copia o link.
+A base Nervi já possui tabelas para:
 
-### Versão pública
+- perfis;
+- ciclos de meta;
+- estado sincronizado do Cofrinho.
 
-O selo **dados locais** foi substituído visualmente por:
+As tabelas usam RLS por usuário e o banco também impede alteração dos campos bloqueados enquanto o ciclo está ativo.
 
-**Versão Beta 0.4**
+## GitHub Pages
 
-Os dados financeiros continuam armazenados localmente no navegador.
-
-## Arquivos para o GitHub
-
-Suba para a raiz:
+Envie para a raiz:
 
 - `index.html`
-- `style-v042.css`
-- `app-v042.js`
+- `style-v050.css`
+- `app-v050.js`
 - `README.md`
 
 Mantenha `.nojekyll`.
 
-O `index.html` desta versão usa nomes novos de CSS e JavaScript para reduzir problemas de cache ou mistura de versões.
+> A conexão de login/sincronização com o Supabase será a próxima etapa. Esta versão continua usando localStorage como armazenamento da interface.

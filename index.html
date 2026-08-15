@@ -12,7 +12,7 @@
       document.documentElement.dataset.theme = "light";
     }
   </script>
-  <link rel="stylesheet" href="./style-v042.css?v=042">
+  <link rel="stylesheet" href="./style-v050.css?v=050">
 </head>
 <body>
   <noscript>O Cofrinho.exe precisa de JavaScript habilitado.</noscript>
@@ -27,6 +27,7 @@
             <div class="window-menu-popover">
               <button class="menu-action share-project" type="button">↗ Compartilhar projeto</button>
               <button class="menu-action copy-project-link" type="button">⧉ Copiar link</button>
+              <button class="menu-action how-it-works" type="button">? Como funciona?</button>
             </div>
           </details>
         </div>
@@ -72,6 +73,19 @@
               </label>
               <label>Valor-alvo<input id="setupGoalTarget" type="number" min="0.01" step="0.01" value="1000"></label>
               <label>Reserva automática por mês<input id="setupGoalMonthly" type="number" min="0" step="0.01" value="0"></label>
+              <label>Duração da meta
+                <select id="setupGoalDuration">
+                  <option value="3">3 meses</option>
+                  <option value="6">6 meses</option>
+                  <option value="12" selected>12 meses</option>
+                  <option value="18">18 meses</option>
+                  <option value="24">24 meses</option>
+                  <option value="36">36 meses</option>
+                </select>
+              </label>
+              <div class="cycle-lock-note">
+                🔒 Ao criar o perfil, nome de usuário, renda, dia de pagamento e os dados desta meta ficam bloqueados até o fim do ciclo.
+              </div>
             </section>
           </div>
 
@@ -121,6 +135,7 @@
             <div class="window-menu-popover">
               <button class="menu-action share-project" type="button">↗ Compartilhar projeto</button>
               <button class="menu-action copy-project-link" type="button">⧉ Copiar link</button>
+              <button class="menu-action how-it-works" type="button">? Como funciona?</button>
             </div>
           </details>
         </div>
@@ -133,6 +148,10 @@
             <button id="currentMonthBtn" class="month-button today" type="button">Mês atual</button>
           </div>
           <div class="header-actions">
+            <button id="notificationBell" class="notification-bell" type="button" aria-label="Abrir notificações" title="Notificações">
+              <span aria-hidden="true">🔔</span>
+              <span id="notificationBadge" class="notification-badge hidden">0</span>
+            </button>
             <div class="theme-switch mini" aria-label="Aparência">
               <button type="button" data-theme-choice="light">☀</button>
               <button type="button" data-theme-choice="dark">☾</button>
@@ -175,6 +194,6 @@
     </form>
   </dialog>
 
-  <script src="./app-v042.js?v=042"></script>
+  <script src="./app-v050.js?v=050"></script>
 </body>
 </html>
