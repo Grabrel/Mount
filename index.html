@@ -12,7 +12,7 @@
       document.documentElement.dataset.theme = "light";
     }
   </script>
-  <link rel="stylesheet" href="./style-v051.css?v=051">
+  <link rel="stylesheet" href="./style-v052.css?v=052">
 </head>
 <body>
   <noscript>O Cofrinho.exe precisa de JavaScript habilitado.</noscript>
@@ -91,7 +91,7 @@
                 <button type="button" data-theme-choice="light">☀ Claro</button>
                 <button type="button" data-theme-choice="dark">☾ Escuro</button>
               </div>
-              <div class="status-pill beta-badge">Versão Beta 0.4</div>
+              <div class="status-pill beta-badge">Versão Beta 0.5</div>
             </div>
           </div>
 
@@ -104,7 +104,10 @@
                   <span class="muted">Sua identidade na plataforma Nervi.</span>
                 </div>
               </div>
-              <label>Nome de usuário<input id="setupUsername" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="40" placeholder="Ex.: gabriel"></label>
+              <label>Nome de usuário
+                <input id="setupUsername" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="40" placeholder="Ex.: gabriel">
+                <small class="field-help">Este será seu nome de acesso. Ele é único na Nervi; “Gabriel” e “gabriel” contam como o mesmo usuário.</small>
+              </label>
               <label>Senha de acesso<input id="setupPassword" type="password" autocomplete="new-password" maxlength="128" placeholder="Mínimo de 6 caracteres"></label>
               <label>Confirmar senha<input id="setupPasswordConfirm" type="password" autocomplete="new-password" maxlength="128" placeholder="Digite a senha novamente"></label>
               <label>Renda líquida mensal<input id="setupIncome" type="number" min="0" step="0.01" value="0"></label>
@@ -121,7 +124,11 @@
                 </select>
               </label>
               <label>Valor-alvo<input id="setupGoalTarget" type="number" min="0.01" step="0.01" value="1000"></label>
-              <label>Reserva automática por mês<input id="setupGoalMonthly" type="number" min="0" step="0.01" value="0"></label>
+              <div class="auto-reserve-card">
+                <span>Reserva automática por mês</span>
+                <strong id="setupGoalMonthlyDisplay">R$ 83,33</strong>
+                <small id="setupGoalMonthlyDetail">Calculada automaticamente pelo valor-alvo e duração.</small>
+              </div>
               <label>Duração da meta
                 <select id="setupGoalDuration">
                   <option value="3">3 meses</option>
@@ -225,7 +232,7 @@
             <button class="nav-button" data-view="goal">🎯 Minha meta</button>
             <button class="nav-button" data-view="history">📜 Histórico</button>
             <button class="nav-button" data-view="settings">⚙ Configurações</button>
-            <div class="sidebar-status"><strong>STATUS</strong><span class="beta-status">Versão Beta 0.4</span><small>Seus dados financeiros continuam armazenados localmente no navegador.</small></div>
+            <div class="sidebar-status"><strong>STATUS</strong><span class="beta-status">Versão Beta 0.5</span><small>Seus dados financeiros continuam armazenados localmente no navegador.</small></div>
           </div>
         </aside>
         <section id="content" class="content"></section>
@@ -247,6 +254,6 @@
     </form>
   </dialog>
 
-  <script src="./app-v051.js?v=051"></script>
+  <script src="./app-v052.js?v=052"></script>
 </body>
 </html>

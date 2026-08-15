@@ -1,47 +1,52 @@
-# Nervi — Cofrinho.exe Web v0.5.1
+# Nervi — Cofrinho.exe Web v0.5.2
 
-## Nova página inicial
+## Usuário único
 
-A página inicial agora é uma tela de acesso minimalista inspirada em mensageiros clássicos.
+A base Supabase já possui um índice único case-insensitive em `profiles.username`.
 
-Ela mostra somente:
+Isso significa que nomes como:
 
-- Nervi;
-- campo Usuário;
-- campo Senha;
-- botão Entrar;
-- botão Criar conta;
-- atalho `?` de ajuda.
+- `gabriel`
+- `Gabriel`
+- `GABRIEL`
 
-O cadastro financeiro completo da v0.5 passou a ser o fluxo **Criar conta**.
+são tratados como o mesmo nome de acesso e não poderão existir em contas diferentes quando o cadastro em nuvem estiver conectado.
 
-## Senha nesta etapa
+A interface também deixa essa regra explícita no cadastro.
 
-A v0.5.1 já permite criar uma senha local e entrar novamente no mesmo navegador.
+## Reserva automática calculada
 
-A senha não é armazenada em texto puro. O navegador guarda apenas um verificador derivado com PBKDF2/SHA-256 e salt aleatório.
+O usuário não digita mais manualmente a reserva mensal.
 
-**Importante:** esta camada de login ainda é local. A sincronização/login multi-dispositivo com Supabase continua sendo a próxima integração.
+A Nervi calcula:
 
-## Sair
+`valor-alvo ÷ duração da meta`
 
-Dentro da conta, os três pontos agora também possuem a opção:
+e mostra o resultado em reais antes da criação da conta.
 
-`↩ Sair`
+Exemplo:
 
-Ela volta para a nova tela de login.
+- Meta: R$ 500,00
+- Duração: 6 meses
+- 5 aportes: R$ 83,33
+- Último aporte: R$ 83,35
+- Total: R$ 500,00
 
-## Atualizar GitHub Pages
+Os centavos do último aporte são ajustados automaticamente para que a meta feche exatamente.
 
-Suba para a raiz do repositório Nervi:
+Se a reserva mensal necessária superar a renda líquida informada, a criação do ciclo é bloqueada e a Nervi orienta aumentar a duração ou reduzir o valor-alvo.
+
+## GitHub Pages
+
+Envie para a raiz do repositório Nervi:
 
 - `index.html`
-- `style-v051.css`
-- `app-v051.js`
+- `style-v052.css`
+- `app-v052.js`
 - `README.md`
 
 Mantenha `.nojekyll`.
 
-O endereço público esperado é:
+Endereço público:
 
 `https://grabrel.github.io/Nervi/`
