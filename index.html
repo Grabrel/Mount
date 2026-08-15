@@ -12,12 +12,59 @@
       document.documentElement.dataset.theme = "light";
     }
   </script>
-  <link rel="stylesheet" href="./style-v050.css?v=050">
+  <link rel="stylesheet" href="./style-v051.css?v=051">
 </head>
 <body>
   <noscript>O Cofrinho.exe precisa de JavaScript habilitado.</noscript>
 
   <main id="app" class="app-shell">
+    <section id="loginScreen" class="screen login-screen" aria-labelledby="loginBrand">
+      <div class="login-window" role="region" aria-label="Entrar na Nervi">
+        <div class="login-titlebar">
+          <strong>Nervi</strong>
+          <span>●</span>
+        </div>
+
+        <div class="login-body">
+          <div class="login-brand" id="loginBrand">
+            <div class="login-nervi">Nervi</div>
+            <div class="login-product">Cofrinho.exe</div>
+          </div>
+
+          <form id="loginForm" class="login-form">
+            <label>
+              Usuário
+              <input id="loginUsername" autocomplete="username" autocapitalize="none"
+                     spellcheck="false" maxlength="40" placeholder="seu usuário">
+            </label>
+
+            <label>
+              Senha
+              <div class="password-row">
+                <input id="loginPassword" type="password" autocomplete="current-password"
+                       maxlength="128" placeholder="sua senha">
+                <button id="toggleLoginPassword" class="password-eye" type="button"
+                        aria-label="Mostrar ou ocultar senha">◉</button>
+              </div>
+            </label>
+
+            <div id="loginError" class="login-message hidden"></div>
+
+            <button id="loginSubmit" class="login-enter" type="submit">Entrar</button>
+
+            <div class="login-divider"><span>ou</span></div>
+
+            <button id="openCreateAccount" class="login-create" type="button">Criar conta</button>
+          </form>
+
+          <div class="login-footer">
+            <span>Versão Beta 0.5</span>
+            <button class="login-help how-it-works" type="button">?</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="setupScreen" class="screen hidden" aria-labelledby="setupTitle">
       <div class="window hero-window">
         <div class="titlebar">
@@ -57,7 +104,9 @@
                   <span class="muted">Sua identidade na plataforma Nervi.</span>
                 </div>
               </div>
-              <label>Nome de usuário<input id="setupUsername" autocomplete="off" maxlength="40" placeholder="Ex.: Gabriel"></label>
+              <label>Nome de usuário<input id="setupUsername" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="40" placeholder="Ex.: gabriel"></label>
+              <label>Senha de acesso<input id="setupPassword" type="password" autocomplete="new-password" maxlength="128" placeholder="Mínimo de 6 caracteres"></label>
+              <label>Confirmar senha<input id="setupPasswordConfirm" type="password" autocomplete="new-password" maxlength="128" placeholder="Digite a senha novamente"></label>
               <label>Renda líquida mensal<input id="setupIncome" type="number" min="0" step="0.01" value="0"></label>
               <label>Dia de pagamento<input id="setupPayday" type="number" min="1" max="31" value="5"></label>
             </section>
@@ -121,7 +170,10 @@
           </section>
 
           <div id="setupError" class="message error hidden"></div>
-          <div class="actions-right"><button id="setupCreate" class="button primary" type="button">Criar perfil local</button></div>
+          <div class="setup-final-actions">
+            <button id="backToLogin" class="button secondary" type="button">← Voltar para entrar</button>
+            <button id="setupCreate" class="button primary" type="button">Criar conta</button>
+          </div>
         </div>
       </div>
     </section>
@@ -136,6 +188,7 @@
               <button class="menu-action share-project" type="button">↗ Compartilhar projeto</button>
               <button class="menu-action copy-project-link" type="button">⧉ Copiar link</button>
               <button class="menu-action how-it-works" type="button">? Como funciona?</button>
+              <button class="menu-action sign-out-action" type="button">↩ Sair</button>
             </div>
           </details>
         </div>
@@ -194,6 +247,6 @@
     </form>
   </dialog>
 
-  <script src="./app-v050.js?v=050"></script>
+  <script src="./app-v051.js?v=051"></script>
 </body>
 </html>

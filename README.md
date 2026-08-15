@@ -1,61 +1,47 @@
-# Nervi — Cofrinho.exe Web v0.5
+# Nervi — Cofrinho.exe Web v0.5.1
 
-A v0.5 acrescenta ciclos de meta, bloqueio dos dados principais e uma ajuda simples no menu de três pontos.
+## Nova página inicial
 
-## Ciclo da meta
+A página inicial agora é uma tela de acesso minimalista inspirada em mensageiros clássicos.
 
-No cadastro a pessoa escolhe a duração da Meta obrigatória.
+Ela mostra somente:
 
-Enquanto o ciclo estiver ativo, estes dados ficam bloqueados:
+- Nervi;
+- campo Usuário;
+- campo Senha;
+- botão Entrar;
+- botão Criar conta;
+- atalho `?` de ajuda.
 
-- nome de usuário;
-- renda líquida mensal;
-- dia de pagamento;
-- nome/categoria/valor-alvo/reserva mensal da meta;
-- data final da meta.
+O cadastro financeiro completo da v0.5 passou a ser o fluxo **Criar conta**.
 
-Quando o ciclo termina, a área **Minha meta** libera o botão **Iniciar novo ciclo**.
+## Senha nesta etapa
 
-O ciclo anterior é preservado no estado local e o novo ciclo passa a valer a partir da data de criação.
+A v0.5.1 já permite criar uma senha local e entrar novamente no mesmo navegador.
 
-## Ajuda
+A senha não é armazenada em texto puro. O navegador guarda apenas um verificador derivado com PBKDF2/SHA-256 e salt aleatório.
 
-Nos três pontos do canto superior existe:
+**Importante:** esta camada de login ainda é local. A sincronização/login multi-dispositivo com Supabase continua sendo a próxima integração.
 
-`? Como funciona?`
+## Sair
 
-A explicação é curta e cobre perfil, meta, bloqueio do ciclo, planejamento, pagamentos e notificações.
+Dentro da conta, os três pontos agora também possuem a opção:
 
-## Notificações
+`↩ Sair`
 
-Mantidas da v0.4.3:
+Ela volta para a nova tela de login.
 
-- até 3 dias antes por padrão;
-- vence amanhã;
-- vence hoje;
-- atrasado;
-- sino no cabeçalho;
-- preferências em Configurações.
+## Atualizar GitHub Pages
 
-## Supabase
-
-A base Nervi já possui tabelas para:
-
-- perfis;
-- ciclos de meta;
-- estado sincronizado do Cofrinho.
-
-As tabelas usam RLS por usuário e o banco também impede alteração dos campos bloqueados enquanto o ciclo está ativo.
-
-## GitHub Pages
-
-Envie para a raiz:
+Suba para a raiz do repositório Nervi:
 
 - `index.html`
-- `style-v050.css`
-- `app-v050.js`
+- `style-v051.css`
+- `app-v051.js`
 - `README.md`
 
 Mantenha `.nojekyll`.
 
-> A conexão de login/sincronização com o Supabase será a próxima etapa. Esta versão continua usando localStorage como armazenamento da interface.
+O endereço público esperado é:
+
+`https://grabrel.github.io/Nervi/`
