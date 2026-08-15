@@ -1,89 +1,98 @@
-# Cofrinho.exe — Web v0.1
+# Cofrinho.exe — Web v0.2
 
-Site estático do Cofrinho.exe, pensado para publicação gratuita no GitHub Pages.
+Versão estática para GitHub Pages. Não requer Python, servidor ou banco online.
 
-## O que já funciona
+## Novidades da v0.2
 
-- criação de perfil local;
-- renda líquida mensal e dia de pagamento;
-- meta obrigatória e reserva automática;
-- gastos previstos recorrentes;
-- três níveis de prioridade;
-- botão **✓ Pago** para transformar um gasto previsto em gasto real do mês;
-- registro de gastos manuais;
-- painel com:
-  - renda recebida;
-  - reservado para a meta;
-  - gastos realizados;
-  - disponível hoje;
-  - compromissos previstos;
-  - compromissos ainda pendentes;
-  - livre após compromissos;
-  - livre previsto do mês;
-- histórico mensal;
-- cadeia SHA-256 para verificação de integridade;
-- exportação e importação de backup JSON;
-- dados armazenados no `localStorage` do navegador.
+### Prioridades com nomes definitivos
+
+- **Essencial**
+- **Importante**
+- **Flexível**
+
+### Vencimento opcional
+
+Cada gasto previsto pode ter:
+
+- nome;
+- categoria;
+- valor previsto;
+- prioridade;
+- dia de vencimento de 1 a 31;
+- ou nenhum vencimento fixo.
+
+Status:
+
+- **Previsto**
+- **Vence hoje**
+- **Atrasado**
+- **Pago**
+
+Se o vencimento for dia 31 e o mês tiver menos dias, o sistema usa automaticamente o último dia do mês.
+
+A **data real do pagamento** é armazenada separadamente do vencimento.
+
+### Seletor de mês
+
+O cabeçalho agora permite navegar entre meses.
+
+Agosto, setembro, outubro etc. mantêm seus movimentos separados. Voltar para um mês anterior não apaga o que aconteceu nele.
+
+### Previsões versionadas
+
+Um gasto previsto pode ser editado.
+
+Exemplo:
+
+- agosto: Academia prevista em R$ 120;
+- setembro: passa para R$ 130.
+
+A edição feita em setembro vale de setembro em diante. Agosto continua mostrando R$ 120.
+
+O histórico financeiro real continua imutável.
+
+### Valor previsto x valor real
+
+Ao clicar em **✓ Pago**, o aplicativo pede:
+
+- valor real pago;
+- data real do pagamento.
+
+Exemplo:
+
+- energia prevista: R$ 150;
+- energia paga: R$ 137,84;
+- observação: **R$ 12,16 abaixo do previsto**.
+
+O dashboard e o histórico mostram essa diferença.
+
+### Livre de verdade
+
+O dashboard exibe uma mensagem no formato:
+
+> Você tem R$ X disponíveis no mês, mas R$ Y ainda estão comprometidos. Livre de verdade: R$ Z.
+
+## Atualizar o GitHub Pages
+
+Substitua na raiz do repositório:
+
+- `index.html`
+- `style.css`
+- `app.js`
+- `README.md`
+
+Mantenha também `.nojekyll`.
+
+Depois faça o commit. Como o GitHub Pages já está configurado para `main / (root)`, o site será publicado novamente automaticamente.
+
+## Migração da v0.1
+
+A v0.2 procura primeiro seus dados na chave nova. Se não encontrar, tenta carregar automaticamente os dados salvos pela Web v0.1 no mesmo navegador e endereço do site.
+
+Por isso, mantenha o mesmo repositório/URL durante a atualização se quiser preservar os dados locais existentes.
 
 ## Privacidade
 
-Esta versão não possui conta online, servidor ou banco remoto.
+Os dados ficam no `localStorage` do navegador. O repositório do GitHub contém somente o código do site.
 
-Os dados financeiros digitados pelo usuário não são enviados pelo código do Cofrinho.exe. Eles ficam no `localStorage` daquele navegador/origem.
-
-Consequências importantes:
-
-- abrir em outro dispositivo não sincroniza os dados;
-- limpar os dados do navegador pode apagar o Cofrinho;
-- use **Configurações → Exportar backup JSON** para preservar os dados;
-- o código do site pode ser público no GitHub sem que os dados financeiros dos usuários sejam publicados.
-
-## Testar localmente
-
-Você pode abrir `index.html` diretamente no navegador.
-
-Para testar exatamente como um site HTTP, também pode usar qualquer servidor estático local, mas isso não é necessário para começar.
-
-## Publicar no GitHub Pages pela interface do GitHub
-
-1. Crie um repositório chamado `cofrinho`.
-2. Deixe o repositório público se estiver usando GitHub Free.
-3. Envie para a raiz do repositório:
-   - `index.html`
-   - `style.css`
-   - `app.js`
-   - `.nojekyll`
-   - `README.md`
-4. Abra **Settings** no repositório.
-5. Vá em **Pages**.
-6. Em **Build and deployment**, escolha **Deploy from a branch**.
-7. Em **Branch**, selecione:
-   - branch: `main`
-   - pasta: `/(root)`
-8. Clique em **Save**.
-9. Aguarde o GitHub publicar.
-
-O endereço normalmente ficará no formato:
-
-`https://SEU-USUARIO.github.io/cofrinho/`
-
-## Estrutura
-
-```text
-cofrinho/
-├── index.html
-├── style.css
-├── app.js
-├── README.md
-└── .nojekyll
-```
-
-## Próximas ideias
-
-- nomes definitivos das prioridades;
-- edição de renda/meta com regras de segurança;
-- recorrência personalizada dos gastos;
-- múltiplas rendas;
-- meses anteriores e seletor de período;
-- PWA instalável;
-- autenticação e sincronização, somente quando o projeto realmente precisar de backend.
+Faça backups pelo menu **Configurações → Exportar backup JSON**.

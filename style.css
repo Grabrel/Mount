@@ -531,3 +531,214 @@ select:focus {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* ==========================================================
+   Cofrinho.exe Web v0.2
+   ========================================================== */
+
+.header-user {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.month-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.month-label {
+  display: flex;
+  grid-template-columns: none;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+}
+
+.month-label input {
+  width: 150px;
+  min-height: 32px;
+  padding: 4px 6px;
+}
+
+.month-button {
+  min-height: 32px;
+  padding: 4px 9px;
+  border: 2px outset #DDD;
+  background: #D8D5CB;
+  color: var(--black);
+  font-weight: 700;
+}
+
+.month-button:active {
+  border-style: inset;
+}
+
+.month-button.today {
+  background: #FFF2B5;
+}
+
+.status {
+  display: inline-block;
+  min-width: 86px;
+  padding: 3px 6px;
+  border: 1px solid #777;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.status-planned {
+  background: #ECE8DA;
+  color: #555;
+}
+
+.status-today {
+  background: #FFF2B5;
+  color: var(--mustard-dark);
+}
+
+.status-late {
+  background: #F7DADA;
+  color: var(--red);
+}
+
+.status-paid {
+  background: #E2F2DB;
+  color: #2D6D1F;
+}
+
+.difference-good {
+  color: #2D6D1F;
+  font-weight: 700;
+}
+
+.difference-bad {
+  color: var(--red);
+  font-weight: 700;
+}
+
+.difference-neutral {
+  color: #555;
+}
+
+.dashboard-alert {
+  margin-top: 10px;
+  padding: 12px;
+  border: 2px solid var(--mustard-dark);
+  background: #FFF6C9;
+  font-size: 14px;
+}
+
+.dashboard-alert strong {
+  font-size: 16px;
+}
+
+.observation-list {
+  display: grid;
+  gap: 7px;
+}
+
+.observation-item {
+  padding: 8px;
+  border-left: 4px solid var(--mustard);
+  background: var(--white);
+}
+
+.dialog-close {
+  border: 0;
+  background: transparent;
+  color: var(--black);
+  font-size: 20px;
+  line-height: 1;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.form-dialog {
+  width: min(650px, calc(100% - 24px));
+}
+
+.dialog-form-grid {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+}
+
+.dialog-form-grid label {
+  display: contents;
+}
+
+.dialog-form-grid .full-row {
+  grid-column: 1 / -1;
+}
+
+.dialog-note {
+  margin: 10px 0;
+  padding: 9px;
+  border: 1px solid var(--mustard-dark);
+  background: #FFF6C9;
+}
+
+.due-help {
+  color: #555;
+  font-size: 11px;
+}
+
+.planned-editor-row {
+  grid-template-columns: 1.35fr 1fr .65fr .8fr .65fr auto;
+}
+
+@media (max-width: 1050px) {
+  .header-body {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .month-nav {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 900px) {
+  .planned-editor-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .planned-editor-row .remove-planned {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .month-nav {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+  }
+
+  .month-button.today {
+    grid-column: 1 / -1;
+  }
+
+  .month-label input {
+    width: 100%;
+  }
+
+  .dialog-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dialog-form-grid label {
+    display: grid;
+  }
+}

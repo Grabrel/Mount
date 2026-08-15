@@ -24,7 +24,7 @@
               <h1>Cofrinho.exe</h1>
               <p>Planejamento financeiro local, com cara de programa dos anos 2000.</p>
             </div>
-            <div class="status-pill">● offline/local</div>
+            <div class="status-pill">● dados locais</div>
           </div>
 
           <div class="setup-grid">
@@ -131,10 +131,21 @@
           <span class="window-controls">_ □ ×</span>
         </div>
         <div class="header-body">
-          <div>
+          <div class="header-user">
             <strong id="headerUser">🙂 Usuário</strong>
-            <span class="online">● local</span>
+            <span class="online">● dados locais</span>
           </div>
+
+          <div class="month-nav" aria-label="Selecionar mês">
+            <button id="prevMonthBtn" class="month-button" type="button" title="Mês anterior">◀</button>
+            <label class="month-label">
+              Mês
+              <input id="monthSelector" type="month">
+            </label>
+            <button id="nextMonthBtn" class="month-button" type="button" title="Próximo mês">▶</button>
+            <button id="currentMonthBtn" class="month-button today" type="button">Mês atual</button>
+          </div>
+
           <div class="header-note">Seus dados ficam neste navegador.</div>
         </div>
       </header>
@@ -153,7 +164,7 @@
 
             <div class="sidebar-status">
               <strong>STATUS</strong>
-              <span class="online">● Local</span>
+              <span class="online">● Dados locais</span>
               <small>Nenhum dado financeiro é enviado pelo Cofrinho.exe.</small>
             </div>
           </div>
@@ -174,6 +185,16 @@
           <button id="confirmOk" value="default" class="button primary">Confirmar</button>
         </div>
       </div>
+    </form>
+  </dialog>
+
+  <dialog id="formDialog" class="retro-dialog form-dialog">
+    <form id="dynamicDialogForm">
+      <div class="titlebar">
+        <span id="formDialogTitle">EDITAR</span>
+        <button id="formDialogClose" class="dialog-close" type="button" aria-label="Fechar">×</button>
+      </div>
+      <div id="formDialogBody" class="dialog-body"></div>
     </form>
   </dialog>
 
