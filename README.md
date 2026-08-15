@@ -1,57 +1,58 @@
-# Cofrinho.exe — Web v0.4
+# Cofrinho.exe — Web v0.4.1
 
-Versão pronta para GitHub Pages, sem dependências e sem pasta de imagens.
+Correção da v0.4 para GitHub Pages.
 
-## Novidades da v0.4
+## Por que existe esta versão
 
-### Dois temas
+O repositório podia acabar com arquivos de versões diferentes ao mesmo tempo, por exemplo:
 
-A pessoa pode alternar entre:
+- `index.html` novo;
+- `style.css` novo;
+- `app.js` antigo.
 
-- **Claro** — mostarda suave com vermelho;
-- **Escuro** — vinho com detalhes em mostarda.
+Nesse caso, os controles aparecem na tela, mas não funcionam.
 
-A preferência fica salva localmente no navegador e é reaplicada quando o site abre novamente.
+A v0.4.1 evita isso usando nomes novos:
 
-### Foto de perfil simplificada
+- `style-v041.css`
+- `app-v041.js`
 
-Não existem mais avatares prontos nem emojis no pacote.
+O `index.html` aponta especificamente para esses dois arquivos.
 
-A foto de perfil é opcional e aceita somente:
+## O que funciona
 
-1. **arquivo do dispositivo** — a imagem é reduzida no próprio navegador e guardada localmente;
-2. **link direto online** — o navegador carrega a imagem usando a URL informada.
-
-A área da foto no cadastro é **recolhível**. Fechada, ela mostra apenas a foto atual (ou a inicial do nome) e ocupa pouco espaço.
-
-### Recursos preservados
-
-- Essencial / Importante / Flexível;
-- vencimento opcional;
-- status Previsto / Vence hoje / Atrasado / Pago;
+- tema **Claro**: mostarda suave + vermelho;
+- tema **Escuro**: vinho + mostarda;
+- tema salvo no navegador;
+- foto de perfil recolhível;
+- foto por **arquivo do dispositivo**;
+- foto por **link direto online**;
 - seletor de mês;
-- edição de gastos previstos por versão mensal;
-- valor real ao marcar `✓ Pago`;
-- observações de previsto x realizado;
-- dashboard com disponível, comprometido e livre de verdade;
-- histórico e verificação SHA-256;
-- backup JSON.
+- prioridades Essencial / Importante / Flexível;
+- vencimento opcional;
+- edição mensal dos gastos previstos;
+- pagamento com valor real;
+- previsto x realizado;
+- livre de verdade;
+- backup e integridade.
 
-## Atualizar no GitHub
+## Como subir no GitHub
 
-Substitua na raiz do seu repositório:
+Envie para a raiz do repositório:
 
-- `index.html`
-- `style.css`
-- `app.js`
-- `README.md`
+1. `index.html`
+2. `style-v041.css`
+3. `app-v041.js`
+4. `README.md`
 
-Mantenha `.nojekyll`.
+Você NÃO precisa apagar `app.js` ou `style.css` antigos. O novo `index.html` não usa mais esses arquivos.
 
-Esta versão **não precisa dos arquivos `avatar01.svg` ... `avatar08.svg`**. Eles podem ser removidos do repositório quando você quiser.
+Depois faça **Commit changes** e espere o GitHub Pages terminar o deployment.
 
-## Migração
+Para confirmar visualmente que a versão nova carregou, o cabeçalho deve mostrar:
 
-A v0.4 tenta carregar automaticamente os dados locais das versões v0.3, v0.2 e v0.1 quando o endereço do site continua o mesmo.
+`Cofrinho.exe — WEB v0.4.1`
 
-Fotos antigas que já eram arquivo local ou link direto são preservadas. Avatares prontos/emoji de versões anteriores viram o marcador simples com a inicial do nome.
+## Dados
+
+A v0.4.1 continua usando a mesma chave local da v0.4, então não cria uma base separada só por causa dessa correção.
