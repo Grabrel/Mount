@@ -1,63 +1,57 @@
-# Cofrinho.exe — Web v0.3
+# Cofrinho.exe — Web v0.4
 
-Versão estática para GitHub Pages, com layout mais limpo em azul e vermelho.
+Versão pronta para GitHub Pages, sem dependências e sem pasta de imagens.
 
-## Novidades da v0.3
+## Novidades da v0.4
 
-### Novo visual
+### Dois temas
 
-- interface mais limpa;
-- paleta azul + vermelho;
-- mesmos recursos financeiros da v0.2 preservados.
+A pessoa pode alternar entre:
 
-### Avatares
+- **Claro** — mostarda suave com vermelho;
+- **Escuro** — vinho com detalhes em mostarda.
 
-Agora cada pessoa pode escolher o avatar de quatro formas:
+A preferência fica salva localmente no navegador e é reaplicada quando o site abre novamente.
 
-1. **avatares prontos** incluídos no projeto;
-2. **emoji**;
-3. **arquivo do computador**;
-4. **link direto online**.
+### Foto de perfil simplificada
 
-Os avatares incluídos nesta pasta (`assets/avatars/`) são **originais do projeto**, então você pode usar no Cofrinho sem depender de imagens proprietárias de terceiros.
+Não existem mais avatares prontos nem emojis no pacote.
 
-#### Observações sobre avatar por arquivo
+A foto de perfil é opcional e aceita somente:
 
-- o arquivo é redimensionado no navegador;
-- depois fica salvo localmente junto com os demais dados do usuário.
+1. **arquivo do dispositivo** — a imagem é reduzida no próprio navegador e guardada localmente;
+2. **link direto online** — o navegador carrega a imagem usando a URL informada.
 
-#### Observações sobre avatar por link
+A área da foto no cadastro é **recolhível**. Fechada, ela mostra apenas a foto atual (ou a inicial do nome) e ocupa pouco espaço.
 
-- o navegador tentará carregar a imagem a partir da URL informada;
-- se o link sair do ar, o avatar pode deixar de aparecer;
-- use somente imagens que você possa utilizar.
+### Recursos preservados
 
-## Recursos mantidos da v0.2
-
-- prioridades: **Essencial, Importante e Flexível**;
-- gasto previsto com vencimento opcional;
+- Essencial / Importante / Flexível;
+- vencimento opcional;
+- status Previsto / Vence hoje / Atrasado / Pago;
 - seletor de mês;
-- previsão editável por versão mensal;
-- pagamento com valor real e data real;
-- observações de **previsto x realizado**;
-- dashboard com **livre de verdade**;
-- exportação/importação de backup;
-- verificação de integridade com cadeia SHA-256.
+- edição de gastos previstos por versão mensal;
+- valor real ao marcar `✓ Pago`;
+- observações de previsto x realizado;
+- dashboard com disponível, comprometido e livre de verdade;
+- histórico e verificação SHA-256;
+- backup JSON.
 
-## Publicar / atualizar no GitHub Pages
+## Atualizar no GitHub
 
-No mesmo repositório, substitua:
+Substitua na raiz do seu repositório:
 
 - `index.html`
 - `style.css`
 - `app.js`
 - `README.md`
-- pasta `assets/`
 
-Mantenha também `.nojekyll`.
+Mantenha `.nojekyll`.
 
-Depois faça commit. Se o Pages já estiver configurado em `main / (root)`, o site será atualizado automaticamente.
+Esta versão **não precisa dos arquivos `avatar01.svg` ... `avatar08.svg`**. Eles podem ser removidos do repositório quando você quiser.
 
 ## Migração
 
-A v0.3 tenta aproveitar automaticamente dados salvos das versões v0.2 e v0.1 no mesmo navegador e no mesmo endereço.
+A v0.4 tenta carregar automaticamente os dados locais das versões v0.3, v0.2 e v0.1 quando o endereço do site continua o mesmo.
+
+Fotos antigas que já eram arquivo local ou link direto são preservadas. Avatares prontos/emoji de versões anteriores viram o marcador simples com a inicial do nome.

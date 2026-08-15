@@ -3,8 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#1E40AF">
+  <meta name="theme-color" content="#B3261E">
   <title>Cofrinho.exe</title>
+  <script>
+    try {
+      document.documentElement.dataset.theme = localStorage.getItem("cofrinho_theme") || "light";
+    } catch (_) {
+      document.documentElement.dataset.theme = "light";
+    }
+  </script>
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
@@ -18,76 +25,55 @@
           <span class="window-controls">● ● ●</span>
         </div>
 
-        <div class="window-body clean-body">
-          <div class="brand-row clean-brand-row">
+        <div class="window-body">
+          <div class="brand-row">
             <div>
               <h1>Cofrinho.exe</h1>
               <p>Planejamento financeiro local, simples e direto.</p>
             </div>
-            <div class="status-pill">● dados locais</div>
+            <div class="brand-actions">
+              <div class="theme-switch" aria-label="Aparência">
+                <button type="button" data-theme-choice="light">☀ Claro</button>
+                <button type="button" data-theme-choice="dark">☾ Escuro</button>
+              </div>
+              <div class="status-pill">● dados locais</div>
+            </div>
           </div>
 
           <div class="setup-grid">
             <section class="panel">
               <h2>👤 Perfil</h2>
-
-              <label>
-                Nome de usuário
-                <input id="setupUsername" autocomplete="off" maxlength="40" placeholder="Ex.: Gabriel">
-              </label>
-
-              <label>
-                Renda líquida mensal
-                <input id="setupIncome" type="number" min="0" step="0.01" value="0">
-              </label>
-
-              <label>
-                Dia de pagamento
-                <input id="setupPayday" type="number" min="1" max="31" value="5">
-              </label>
+              <label>Nome de usuário<input id="setupUsername" autocomplete="off" maxlength="40" placeholder="Ex.: Gabriel"></label>
+              <label>Renda líquida mensal<input id="setupIncome" type="number" min="0" step="0.01" value="0"></label>
+              <label>Dia de pagamento<input id="setupPayday" type="number" min="1" max="31" value="5"></label>
             </section>
 
             <section class="panel">
               <h2>🎯 Meta obrigatória</h2>
-
-              <label>
-                Nome da meta
-                <input id="setupGoalName" value="Minha reserva" maxlength="80">
-              </label>
-
-              <label>
-                Categoria
+              <label>Nome da meta<input id="setupGoalName" value="Minha reserva" maxlength="80"></label>
+              <label>Categoria
                 <select id="setupGoalCategory">
-                  <option>Emergência</option>
-                  <option>Reserva de segurança</option>
-                  <option>Objetivo pessoal</option>
-                  <option>Compra planejada</option>
-                  <option>Viagem</option>
-                  <option>Moradia</option>
+                  <option>Emergência</option><option>Reserva de segurança</option><option>Objetivo pessoal</option>
+                  <option>Compra planejada</option><option>Viagem</option><option>Moradia</option>
                 </select>
               </label>
-
-              <label>
-                Valor-alvo
-                <input id="setupGoalTarget" type="number" min="0.01" step="0.01" value="1000">
-              </label>
-
-              <label>
-                Reserva automática por mês
-                <input id="setupGoalMonthly" type="number" min="0" step="0.01" value="0">
-              </label>
+              <label>Valor-alvo<input id="setupGoalTarget" type="number" min="0.01" step="0.01" value="1000"></label>
+              <label>Reserva automática por mês<input id="setupGoalMonthly" type="number" min="0" step="0.01" value="0"></label>
             </section>
           </div>
 
-          <section class="panel">
-            <div class="panel-heading-row">
-              <div>
-                <h2>🖼 Avatar</h2>
-                <p class="muted">Escolha um avatar pronto, use emoji, envie um arquivo ou use um link direto.</p>
+          <details id="setupPhotoDetails" class="panel collapsible-panel">
+            <summary>
+              <div class="summary-copy">
+                <strong>🖼 Foto de perfil</strong>
+                <span>Opcional — clique para escolher ou trocar.</span>
               </div>
+              <div id="setupPhotoCompact" class="compact-photo"></div>
+            </summary>
+            <div class="collapsible-body">
+              <div id="setupPhotoPicker"></div>
             </div>
-            <div id="setupAvatarPicker"></div>
-          </section>
+          </details>
 
           <section class="panel">
             <div class="panel-heading-row">
@@ -97,34 +83,18 @@
               </div>
               <button id="setupAddPlanned" class="button secondary" type="button">+ Adicionar</button>
             </div>
-
             <div id="setupPlannedList" class="planned-editor-list"></div>
           </section>
 
           <section class="preview-box">
-            <div>
-              <span>Renda</span>
-              <strong id="setupPreviewIncome">R$ 0,00</strong>
-            </div>
-            <div>
-              <span>Caixinha</span>
-              <strong id="setupPreviewGoal">R$ 0,00</strong>
-            </div>
-            <div>
-              <span>Previstos</span>
-              <strong id="setupPreviewPlanned">R$ 0,00</strong>
-            </div>
-            <div>
-              <span>Livre previsto</span>
-              <strong id="setupPreviewFree">R$ 0,00</strong>
-            </div>
+            <div><span>Renda</span><strong id="setupPreviewIncome">R$ 0,00</strong></div>
+            <div><span>Caixinha</span><strong id="setupPreviewGoal">R$ 0,00</strong></div>
+            <div><span>Previstos</span><strong id="setupPreviewPlanned">R$ 0,00</strong></div>
+            <div><span>Livre previsto</span><strong id="setupPreviewFree">R$ 0,00</strong></div>
           </section>
 
           <div id="setupError" class="message error hidden"></div>
-
-          <div class="actions-right">
-            <button id="setupCreate" class="button primary" type="button">Criar perfil local</button>
-          </div>
+          <div class="actions-right"><button id="setupCreate" class="button primary" type="button">Criar perfil local</button></div>
         </div>
       </div>
     </section>
@@ -135,27 +105,28 @@
           <span>💾 Cofrinho.exe — WEB</span>
           <span class="window-controls">● ● ●</span>
         </div>
-        <div class="header-body clean-body">
+        <div class="header-body">
           <div id="headerIdentity" class="header-identity"></div>
-
           <div class="month-nav" aria-label="Selecionar mês">
             <button id="prevMonthBtn" class="month-button" type="button" title="Mês anterior">◀</button>
-            <label class="month-label">
-              Mês
-              <input id="monthSelector" type="month">
-            </label>
+            <label class="month-label">Mês<input id="monthSelector" type="month"></label>
             <button id="nextMonthBtn" class="month-button" type="button" title="Próximo mês">▶</button>
             <button id="currentMonthBtn" class="month-button today" type="button">Mês atual</button>
           </div>
-
-          <div class="header-note">Seus dados ficam neste navegador.</div>
+          <div class="header-actions">
+            <div class="theme-switch mini" aria-label="Aparência">
+              <button type="button" data-theme-choice="light">☀</button>
+              <button type="button" data-theme-choice="dark">☾</button>
+            </div>
+            <div class="header-note">Seus dados ficam neste navegador.</div>
+          </div>
         </div>
       </header>
 
       <div class="workspace">
         <aside class="window sidebar">
           <div class="titlebar">MENU</div>
-          <div class="sidebar-body clean-body">
+          <div class="sidebar-body">
             <button class="nav-button active" data-view="dashboard">🏠 Início</button>
             <button class="nav-button" data-view="planning">📋 Planejamento</button>
             <button class="nav-button" data-view="expense">💸 Registrar gasto</button>
@@ -163,15 +134,9 @@
             <button class="nav-button" data-view="goal">🎯 Minha meta</button>
             <button class="nav-button" data-view="history">📜 Histórico</button>
             <button class="nav-button" data-view="settings">⚙ Configurações</button>
-
-            <div class="sidebar-status">
-              <strong>STATUS</strong>
-              <span class="online">● Dados locais</span>
-              <small>Nenhum dado financeiro é enviado pelo Cofrinho.exe.</small>
-            </div>
+            <div class="sidebar-status"><strong>STATUS</strong><span class="online">● Dados locais</span><small>Nenhum dado financeiro é enviado pelo Cofrinho.exe.</small></div>
           </div>
         </aside>
-
         <section id="content" class="content"></section>
       </div>
     </section>
@@ -180,23 +145,14 @@
   <dialog id="confirmDialog" class="retro-dialog">
     <form method="dialog">
       <div class="titlebar">CONFIRMAR</div>
-      <div class="dialog-body clean-body">
-        <p id="confirmText"></p>
-        <div class="dialog-actions">
-          <button value="cancel" class="button secondary">Cancelar</button>
-          <button id="confirmOk" value="default" class="button primary">Confirmar</button>
-        </div>
-      </div>
+      <div class="dialog-body"><p id="confirmText"></p><div class="dialog-actions"><button value="cancel" class="button secondary">Cancelar</button><button id="confirmOk" value="default" class="button primary">Confirmar</button></div></div>
     </form>
   </dialog>
 
   <dialog id="formDialog" class="retro-dialog form-dialog">
     <form id="dynamicDialogForm">
-      <div class="titlebar">
-        <span id="formDialogTitle">EDITAR</span>
-        <button id="formDialogClose" class="dialog-close" type="button" aria-label="Fechar">×</button>
-      </div>
-      <div id="formDialogBody" class="dialog-body clean-body"></div>
+      <div class="titlebar"><span id="formDialogTitle">EDITAR</span><button id="formDialogClose" class="dialog-close" type="button" aria-label="Fechar">×</button></div>
+      <div id="formDialogBody" class="dialog-body"></div>
     </form>
   </dialog>
 

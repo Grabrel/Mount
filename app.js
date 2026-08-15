@@ -1,9 +1,10 @@
 (() => {
   "use strict";
 
-  const STORAGE_KEY = "cofrinho_web_v03";
-  const LEGACY_STORAGE_KEYS = ["cofrinho_web_v02", "cofrinho_web_v01"];
-  const APP_VERSION = "0.3";
+  const STORAGE_KEY = "cofrinho_web_v04";
+  const LEGACY_STORAGE_KEYS = ["cofrinho_web_v03", "cofrinho_web_v02", "cofrinho_web_v01"];
+  const THEME_KEY = "cofrinho_theme";
+  const APP_VERSION = "0.4";
 
   const PRIORITIES = {1: "Essencial", 2: "Importante", 3: "Flexível"};
   const EXPENSE_CATEGORIES = [
@@ -15,16 +16,6 @@
     "Educação": 2, "Contas e serviços": 2, "Assinaturas": 3,
     "Dívidas": 1, "Lazer": 3, "Compras": 3, "Outros": 3
   };
-  const BUILTIN_AVATARS = [
-    { id: "retro-1", label: "Clássico 1", src: "./assets/avatars/avatar01.svg" },
-    { id: "retro-2", label: "Clássico 2", src: "./assets/avatars/avatar02.svg" },
-    { id: "retro-3", label: "Clássico 3", src: "./assets/avatars/avatar03.svg" },
-    { id: "retro-4", label: "Clássico 4", src: "./assets/avatars/avatar04.svg" },
-    { id: "retro-5", label: "Clássico 5", src: "./assets/avatars/avatar05.svg" },
-    { id: "retro-6", label: "Clássico 6", src: "./assets/avatars/avatar06.svg" },
-    { id: "retro-7", label: "Clássico 7", src: "./assets/avatars/avatar07.svg" },
-    { id: "retro-8", label: "Clássico 8", src: "./assets/avatars/avatar08.svg" }
-  ];
 
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
@@ -32,7 +23,7 @@
   let selectedMonth = monthKey();
   let currentView = "dashboard";
   let setupPlanned = [];
-  let setupAvatar = { type: "builtin", value: BUILTIN_AVATARS[0].id };
+  let setupPhoto = { type: "none", value: "" };
 
   const state = loadState();
 
@@ -81,7 +72,9 @@
         : []
     };
     if (base.profile) {
-      base.profile.avatar = normalizeAvatar(base.profile.avatar || base.profile.avatarData || base.profile.avatarUrl || base.profile.avatarEmoji || "🙂");
+      base.profile.photo = normalizePhoto(
+        base.profile.photo || base.profile.avatar || base.profile.avatarData || base.profile.avatarUrl || null
+      );
     }
     base.version = APP_VERSION;
     return base;
@@ -375,49 +368,75 @@
     return { paid: true, expected, actual, diff, text: `${money(Math.abs(diff))} abaixo do previsto.`, className: "difference-good" };
   }
 
-  // Avatar helpers
-  function normalizeAvatar(input) {
-    if (input && typeof input === "object" && input.type) {
-      if (input.type === "builtin") return { type: "builtin", value: input.value || BUILTIN_AVATARS[0].id };
-      if (input.type === "emoji") return { type: "emoji", value: input.value || "🙂" };
-      if (input.type === "upload") return { type: "upload", value: input.value || "", name: input.name || "imagem" };
-      if (input.type === "url") return { type: "url", value: input.value || "" };
+  // Aparência e foto de perfil
+  function getTheme() {
+    try {
+      const saved = localStorage.getItem(THEME_KEY);
+      return saved === "dark" ? "dark" : "light";
+    } catch {
+      return "light";
+    }
+  }
+  function applyTheme(theme, persist = true) {
+    const normalized = theme === "dark" ? "dark" : "light";
+    document.documentElement.dataset.theme = normalized;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute("content", normalized === "dark" ? "#321B24" : "#B3261E");
+    if (persist) {
+      try { localStorage.setItem(THEME_KEY, normalized); } catch (_) {}
+    }
+    syncThemeButtons();
+  }
+  function syncThemeButtons() {
+    const current = document.documentElement.dataset.theme === "dark" ? "dark" : "light";
+    $$('[data-theme-choice]').forEach(button => {
+      const active = button.dataset.themeChoice === current;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+  }
+  function themeControlHtml() {
+    const current = getTheme();
+    return `<div class="theme-switch">
+      <button type="button" data-theme-choice="light" class="${current === "light" ? "active" : ""}">☀ Claro</button>
+      <button type="button" data-theme-choice="dark" class="${current === "dark" ? "active" : ""}">☾ Escuro</button>
+    </div>`;
+  }
+
+  function normalizePhoto(input) {
+    if (input && typeof input === "object") {
+      if (input.type === "upload" && /^data:image\//.test(input.value || "")) {
+        return { type: "upload", value: input.value, name: input.name || "imagem local" };
+      }
+      if (input.type === "url" && /^https?:\/\//i.test(input.value || "")) {
+        return { type: "url", value: input.value };
+      }
+      return { type: "none", value: "" };
     }
     if (typeof input === "string") {
       if (/^data:image\//.test(input)) return { type: "upload", value: input, name: "imagem local" };
       if (/^https?:\/\//i.test(input)) return { type: "url", value: input };
-      return { type: "emoji", value: input || "🙂" };
     }
-    return { type: "builtin", value: BUILTIN_AVATARS[0].id };
+    return { type: "none", value: "" };
   }
-  function findBuiltinAvatar(id) {
-    return BUILTIN_AVATARS.find(item => item.id === id) || BUILTIN_AVATARS[0];
+  function photoSourceLabel(photo) {
+    const normalized = normalizePhoto(photo);
+    if (normalized.type === "upload") return "arquivo local";
+    if (normalized.type === "url") return "link externo";
+    return "sem foto";
   }
-  function avatarSourceLabel(avatar) {
-    if (!avatar) return "avatar";
-    if (avatar.type === "builtin") return "avatar pronto";
-    if (avatar.type === "emoji") return "emoji";
-    if (avatar.type === "upload") return "arquivo local";
-    if (avatar.type === "url") return "link externo";
-    return "avatar";
+  function profileInitial(name = "") {
+    const first = String(name || "?").trim().charAt(0).toUpperCase();
+    return first || "?";
   }
-  function avatarInner(avatar) {
-    const normalized = normalizeAvatar(avatar);
-    if (normalized.type === "builtin") {
-      const builtin = findBuiltinAvatar(normalized.value);
-      return `<img src="${escapeHtml(builtin.src)}" alt="${escapeHtml(builtin.label)}">`;
-    }
+  function photoHtml(photo, size = "md", username = "") {
+    const normalized = normalizePhoto(photo);
     if (normalized.type === "upload" || normalized.type === "url") {
-      return `<img src="${escapeHtml(normalized.value)}" alt="avatar">`;
+      return `<img class="profile-photo ${size}" src="${escapeHtml(normalized.value)}" alt="Foto de perfil" referrerpolicy="no-referrer">`;
     }
-    return `<span>${escapeHtml(normalized.value || "🙂")}</span>`;
+    return `<span class="profile-placeholder ${size}" aria-label="Sem foto">${escapeHtml(profileInitial(username))}</span>`;
   }
-  function avatarHtml(avatar, size = "md") {
-    const normalized = normalizeAvatar(avatar);
-    const klass = normalized.type === "emoji" ? `avatar-emoji avatar-${size}` : `avatar-img avatar-${size}`;
-    return `<div class="${klass}">${avatarInner(normalized)}</div>`;
-  }
-  async function fileToAvatarDataUrl(file) {
+  async function fileToPhotoDataUrl(file) {
     const dataUrl = await new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = () => resolve(String(reader.result || ""));
@@ -430,7 +449,7 @@
       element.onerror = reject;
       element.src = dataUrl;
     });
-    const maxSize = 160;
+    const maxSize = 240;
     const scale = Math.min(1, maxSize / Math.max(img.width, img.height));
     const width = Math.max(1, Math.round(img.width * scale));
     const height = Math.max(1, Math.round(img.height * scale));
@@ -439,9 +458,9 @@
     canvas.height = height;
     const ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0, width, height);
-    return canvas.toDataURL("image/png", .92);
+    return canvas.toDataURL("image/jpeg", .86);
   }
-  function isValidAvatarUrl(value) {
+  function isValidPhotoUrl(value) {
     try {
       const url = new URL(value);
       return ["http:", "https:"].includes(url.protocol);
@@ -449,82 +468,59 @@
       return false;
     }
   }
-  function renderAvatarPicker(rootElement, avatarValue, onChange) {
+  function updateSetupPhotoCompact() {
+    const root = $("#setupPhotoCompact");
+    if (!root) return;
+    const username = $("#setupUsername")?.value || "";
+    root.innerHTML = `${photoHtml(setupPhoto, "sm", username)}<span class="source-chip">${escapeHtml(photoSourceLabel(setupPhoto))}</span>`;
+  }
+  function renderPhotoPicker(rootElement, photoValue, onChange, username = "") {
     if (!rootElement) return;
-    const current = normalizeAvatar(avatarValue);
+    const current = normalizePhoto(photoValue);
     rootElement.innerHTML = `
-      <div class="avatar-picker">
-        <div class="avatar-topline">
-          <div class="avatar-preview-card">
-            <h3>Selecionado</h3>
-            ${avatarHtml(current, "lg")}
-            <div style="margin-top:8px;"><span class="source-chip">${escapeHtml(avatarSourceLabel(current))}</span></div>
-          </div>
+      <div class="photo-picker">
+        <div class="photo-preview-row">
+          ${photoHtml(current, "lg", username)}
           <div>
-            <div class="avatar-grid">
-              ${BUILTIN_AVATARS.map(item => `
-                <div class="avatar-option ${current.type === "builtin" && current.value === item.id ? "selected" : ""}">
-                  <button type="button" class="pick-builtin" data-id="${item.id}">
-                    <div class="avatar-img avatar-lg"><img src="${escapeHtml(item.src)}" alt="${escapeHtml(item.label)}"></div>
-                    <small>${escapeHtml(item.label)}</small>
-                  </button>
-                </div>`).join("")}
-            </div>
+            <strong>Foto atual</strong><br>
+            <span class="source-chip">${escapeHtml(photoSourceLabel(current))}</span>
           </div>
         </div>
-
-        <div class="avatar-custom-grid">
-          <div class="avatar-custom-card">
-            <h4>Emoji</h4>
-            <p>Alternativa leve e rápida.</p>
-            <input id="avatarEmojiInput" maxlength="4" placeholder="🙂" value="${current.type === "emoji" ? escapeHtml(current.value) : ""}">
-            <div class="avatar-inline-actions">
-              <button type="button" class="button secondary" id="useAvatarEmoji">Usar emoji</button>
-            </div>
+        <div class="photo-methods">
+          <div class="photo-method">
+            <h4>Arquivo do dispositivo</h4>
+            <p>Escolha uma foto. Ela será reduzida e ficará salva localmente no navegador.</p>
+            <input class="photo-file-input" type="file" accept="image/*">
           </div>
-
-          <div class="avatar-custom-card">
-            <h4>Arquivo do computador</h4>
-            <p>A imagem é reduzida e salva localmente no navegador.</p>
-            <input id="avatarFileInput" type="file" accept="image/*">
-          </div>
-
-          <div class="avatar-custom-card">
+          <div class="photo-method">
             <h4>Link direto online</h4>
-            <p>Use uma URL direta de imagem. O navegador vai carregar essa imagem externamente.</p>
-            <input id="avatarUrlInput" placeholder="https://.../avatar.png" value="${current.type === "url" ? escapeHtml(current.value) : ""}">
-            <div class="avatar-inline-actions">
-              <button type="button" class="button secondary" id="useAvatarUrl">Usar link</button>
-            </div>
+            <p>Cole uma URL direta de imagem. A imagem será carregada pelo navegador a partir desse endereço.</p>
+            <input class="photo-url-input" placeholder="https://.../foto.jpg" value="${current.type === "url" ? escapeHtml(current.value) : ""}">
+            <div class="photo-actions"><button type="button" class="button secondary use-photo-url">Usar link</button></div>
           </div>
         </div>
+        ${current.type !== "none" ? `<div class="photo-actions"><button type="button" class="button danger remove-photo">Remover foto</button></div>` : ""}
       </div>`;
 
-    $$(".pick-builtin", rootElement).forEach(btn => {
-      btn.addEventListener("click", () => onChange({ type: "builtin", value: btn.dataset.id }));
-    });
-    $("#useAvatarEmoji", rootElement)?.addEventListener("click", () => {
-      const value = $("#avatarEmojiInput", rootElement)?.value.trim() || "🙂";
-      onChange({ type: "emoji", value });
-    });
-    $("#avatarFileInput", rootElement)?.addEventListener("change", async event => {
+    $(".photo-file-input", rootElement)?.addEventListener("change", async event => {
       const file = event.target.files?.[0];
       if (!file) return;
       try {
-        const dataUrl = await fileToAvatarDataUrl(file);
-        onChange({ type: "upload", value: dataUrl, name: file.name });
+        const value = await fileToPhotoDataUrl(file);
+        onChange({ type: "upload", value, name: file.name });
       } catch {
-        alertAction("Não foi possível processar essa imagem.");
+        await alertAction("Não foi possível processar essa imagem.");
       }
     });
-    $("#useAvatarUrl", rootElement)?.addEventListener("click", () => {
-      const value = $("#avatarUrlInput", rootElement)?.value.trim() || "";
-      if (!isValidAvatarUrl(value)) {
-        alertAction("Informe um link direto válido começando com http:// ou https://.");
+    $(".use-photo-url", rootElement)?.addEventListener("click", async () => {
+      const value = $(".photo-url-input", rootElement)?.value.trim() || "";
+      if (!isValidPhotoUrl(value)) {
+        await alertAction("Informe um link válido começando com http:// ou https://.");
         return;
       }
       onChange({ type: "url", value });
     });
+    $(".remove-photo", rootElement)?.addEventListener("click", () => onChange({ type: "none", value: "" }));
   }
 
   function showSetup() {
@@ -532,11 +528,13 @@
     $("#mainScreen").classList.add("hidden");
     if (!setupPlanned.length) addSetupPlannedRow();
     renderSetupPlanned();
-    const rerenderSetupAvatar = avatar => {
-      setupAvatar = normalizeAvatar(avatar);
-      renderAvatarPicker($("#setupAvatarPicker"), setupAvatar, rerenderSetupAvatar);
+    const rerenderSetupPhoto = photo => {
+      setupPhoto = normalizePhoto(photo);
+      renderPhotoPicker($("#setupPhotoPicker"), setupPhoto, rerenderSetupPhoto, $("#setupUsername")?.value || "");
+      updateSetupPhotoCompact();
     };
-    renderAvatarPicker($("#setupAvatarPicker"), setupAvatar, rerenderSetupAvatar);
+    renderPhotoPicker($("#setupPhotoPicker"), setupPhoto, rerenderSetupPhoto, $("#setupUsername")?.value || "");
+    updateSetupPhotoCompact();
     updateSetupPreview();
   }
   function addSetupPlannedRow() {
@@ -583,7 +581,7 @@
     $("#setupPreviewGoal").textContent = money(goal);
     $("#setupPreviewPlanned").textContent = money(planned);
     $("#setupPreviewFree").textContent = money(free);
-    $("#setupPreviewFree").style.color = free < 0 ? "var(--red-700)" : "";
+    $("#setupPreviewFree").style.color = free < 0 ? "var(--danger)" : "";
   }
   function setupError(message = "") {
     const box = $("#setupError");
@@ -606,7 +604,7 @@
     if (!(goalTarget > 0)) return setupError("O valor-alvo precisa ser maior que zero.");
     if (monthlyContribution < 0) return setupError("A reserva mensal não pode ser negativa.");
     if (monthlyContribution > monthlyIncome) return setupError("A reserva mensal não pode superar a renda.");
-    state.profile = { username, avatar: normalizeAvatar(setupAvatar), monthlyIncome, payday, createdAt: nowISO() };
+    state.profile = { username, photo: normalizePhoto(setupPhoto), monthlyIncome, payday, createdAt: nowISO() };
     state.goal = { name: goalName, category: goalCategory, target: goalTarget, monthlyContribution, createdAt: nowISO() };
     state.plannedExpenses = [];
     setupPlanned.filter(item => item.name.trim() && Number(item.value) > 0).forEach(item => {
@@ -620,7 +618,7 @@
     const profile = state.profile;
     if (!profile) return;
     $("#headerIdentity").innerHTML = `
-      ${avatarHtml(profile.avatar, "lg")}
+      ${photoHtml(profile.photo, "lg", profile.username)}
       <div class="header-meta">
         <strong>${escapeHtml(profile.username)}</strong>
         <span class="online">● dados locais</span>
@@ -911,22 +909,25 @@
       }).join("")}</tbody></table>` : `<div class="empty-state">Nenhum movimento neste mês.</div>`}</div>
       <p class="muted">O histórico real não é editável pela interface. Mudanças nas previsões não alteram pagamentos já registrados.</p>`);
   }
-  function openAvatarSettingsDialog() {
-    let draftAvatar = normalizeAvatar(state.profile.avatar);
+  function openPhotoSettingsDialog() {
+    let draftPhoto = normalizePhoto(state.profile.photo);
     openDynamicDialog({
-      title: "EDITAR AVATAR",
+      title: "FOTO DE PERFIL",
       body: `
-        <p class="dialog-note">Você pode trocar para um avatar pronto, emoji, arquivo do computador ou link direto de imagem.</p>
-        <div id="dialogAvatarPicker"></div>
+        <p class="dialog-note">Escolha um arquivo do dispositivo ou informe um link direto online.</p>
+        <div id="dialogPhotoPicker"></div>
         <div id="dynamicFormError" class="message error hidden"></div>
-        <div class="dialog-actions"><button id="cancelDynamicForm" class="button secondary" type="button">Cancelar</button><button class="button primary" type="submit">Salvar avatar</button></div>`,
+        <div class="dialog-actions"><button id="cancelDynamicForm" class="button secondary" type="button">Cancelar</button><button class="button primary" type="submit">Salvar foto</button></div>`,
       onOpen: () => {
-        const root = $("#dialogAvatarPicker");
-        const rerender = avatar => { draftAvatar = normalizeAvatar(avatar); renderAvatarPicker(root, draftAvatar, rerender); };
-        renderAvatarPicker(root, draftAvatar, rerender);
+        const root = $("#dialogPhotoPicker");
+        const rerender = photo => {
+          draftPhoto = normalizePhoto(photo);
+          renderPhotoPicker(root, draftPhoto, rerender, state.profile.username);
+        };
+        renderPhotoPicker(root, draftPhoto, rerender, state.profile.username);
       },
       onSubmit: () => {
-        state.profile.avatar = normalizeAvatar(draftAvatar);
+        state.profile.photo = normalizePhoto(draftPhoto);
         saveState();
         renderHeaderIdentity();
         closeDynamicDialog();
@@ -937,24 +938,30 @@
   function renderSettings() {
     $("#content").innerHTML = contentWindow("CONFIGURAÇÕES", `
       <div class="profile-card">
-        ${avatarHtml(state.profile.avatar, "lg")}
+        ${photoHtml(state.profile.photo, "lg", state.profile.username)}
         <div class="meta">
           <strong>${escapeHtml(state.profile.username)}</strong>
-          <span class="source-chip">${escapeHtml(avatarSourceLabel(state.profile.avatar))}</span>
+          <span class="source-chip">${escapeHtml(photoSourceLabel(state.profile.photo))}</span>
         </div>
+      </div>
+      <div class="appearance-box">
+        <h3>Aparência</h3>
+        <p class="muted">Claro: mostarda suave + vermelho. Escuro: vinho + mostarda.</p>
+        ${themeControlHtml()}
       </div>
       <p><strong>Renda mensal:</strong> ${money(state.profile.monthlyIncome)}</p>
       <p><strong>Armazenamento:</strong> localStorage deste navegador.</p>
       <p><strong>Versão:</strong> ${APP_VERSION}</p>
       <div class="settings-actions">
-        <button id="changeAvatarBtn" class="button secondary">🖼 Trocar avatar</button>
+        <button id="changePhotoBtn" class="button secondary">🖼 Trocar foto</button>
         <button id="verifyBtn" class="button secondary">🛡 Verificar integridade</button>
         <button id="exportBtn" class="button secondary">⬇ Exportar backup JSON</button>
         <label class="button secondary" style="display:inline-flex;align-items:center;">⬆ Importar backup<input id="importInput" type="file" accept=".json,application/json" hidden></label>
         <button id="resetBtn" class="button danger">Apagar dados locais</button>
       </div>
       <div id="settingsMessage" class="message hidden"></div>`);
-    $("#changeAvatarBtn").addEventListener("click", openAvatarSettingsDialog);
+    $("#changePhotoBtn").addEventListener("click", openPhotoSettingsDialog);
+    syncThemeButtons();
     $("#verifyBtn").addEventListener("click", async () => {
       const result = await verifyIntegrity();
       const box = $("#settingsMessage");
@@ -1037,6 +1044,7 @@
       addSetupPlannedRow(); renderSetupPlanned(); updateSetupPreview();
     });
     ["setupIncome", "setupGoalMonthly"].forEach(id => { $("#" + id).addEventListener("input", updateSetupPreview); });
+    $("#setupUsername").addEventListener("input", updateSetupPhotoCompact);
     $("#setupCreate").addEventListener("click", createProfile);
     $$(".nav-button[data-view]").forEach(button => button.addEventListener("click", () => navigate(button.dataset.view)));
     $("#registerIncomeBtn").addEventListener("click", registerIncome);
@@ -1045,6 +1053,12 @@
     $("#nextMonthBtn").addEventListener("click", () => setSelectedMonth(shiftMonth(selectedMonth, 1)));
     $("#currentMonthBtn").addEventListener("click", () => setSelectedMonth(monthKey()));
     $("#formDialogClose").addEventListener("click", closeDynamicDialog);
+    document.addEventListener("click", event => {
+      const button = event.target.closest("[data-theme-choice]");
+      if (!button) return;
+      applyTheme(button.dataset.themeChoice, true);
+    });
+    applyTheme(getTheme(), false);
   }
 
   bindStaticEvents();
