@@ -1,73 +1,23 @@
-# Nervi — Cofrinho.exe v1.0
+# Nervi — Cofrinho.exe v1.0.1
 
-**Nervi — Seu dinheiro. Suas escolhas. Mais tranquilidade.**
+Aplicativo financeiro pessoal com GitHub Pages + Supabase.
 
-A v1.0 consolida a base anterior e adiciona **Meta vinculada**: o usuário pode associar opcionalmente um anúncio de produto, serviço ou imóvel à meta e consultar o preço sob demanda.
+## Destaques
 
-## Principais recursos
+- dashboard com “Livre de verdade” em primeiro plano;
+- cadastro rápido de gastos por botão flutuante `+`;
+- metas financeiras com anúncio vinculado e atualização manual de preço;
+- temas claro/escuro;
+- sincronização na Nervi Cloud;
+- novas contas sujeitas à aprovação do gerente;
+- recuperação de senha manual, sem Twilio/SMS.
 
-- Nervi Cloud com Supabase;
-- login por usuário e senha;
-- mensagens separadas para usuário incorreto e senha incorreta;
-- recuperação de senha somente por celular/SMS;
-- tema claro/escuro já no login;
-- foto de perfil;
-- gastos previstos com vencimento e prioridades Essencial, Importante e Flexível;
-- botão flutuante `+` para registrar gasto rapidamente;
-- atalho `Ctrl/Cmd + Shift + G`;
-- dashboard com destaque para **Livre de verdade**;
-- metas/ciclos e histórico;
-- backup JSON;
-- **Meta vinculada com leitura manual de anúncio**.
+## Publicação
 
-## Meta vinculada
+O frontend foi empacotado de forma plana para upload pela interface web do GitHub. Extraia o ZIP principal e envie os arquivos diretamente para a raiz do repositório.
 
-Na criação da conta, o campo **Link da meta** é opcional.
+O backend está dentro de `SUPABASE_BACKEND_v1.0.1.zip` e deve ser tratado separadamente. Leia `SUPABASE_SETUP_v1.0.1.md` antes de aplicá-lo.
 
-Ao informar um link e clicar em **Ler anúncio**, o Nervi tenta encontrar:
+## Aprovação de contas
 
-- título do anúncio;
-- preço principal;
-- tipo de preço (compra, venda, aluguel mensal ou serviço mensal);
-- custos adicionais reconhecidos, como condomínio e IPTU;
-- disponibilidade da página.
-
-Quando um preço é identificado durante a criação da conta, ele preenche automaticamente o **Valor-alvo**. O usuário ainda pode ajustar o valor antes de criar a conta.
-
-Depois que o ciclo existe, a atualização do anúncio é **somente manual** pelo botão **↻ Atualizar preço**. Não existe Cron nem monitoramento automático.
-
-O Nervi não altera automaticamente o valor-alvo de um ciclo em andamento. Ele compara o preço atual do anúncio com o valor-alvo e mostra a diferença.
-
-O histórico de preço registra somente mudanças reais; verificações sem alteração atualizam apenas a data da última consulta.
-
-## Estados do anúncio
-
-- 🟢 Disponível
-- 🟡 Preço não identificado
-- 🔴 Anúncio indisponível
-- 🔒 Consulta bloqueada pelo site
-- ⚠ Não foi possível verificar
-
-Se uma consulta falhar, o último preço conhecido é preservado.
-
-## Limitações de leitura
-
-Alguns sites usam CAPTCHA, proteção anti-bot ou carregam todos os dados por JavaScript. Nesses casos, a leitura pode falhar. A função não executa JavaScript do anúncio e nunca deve inventar um preço.
-
-## Publicação no GitHub Pages
-
-O frontend é propositalmente **flat**: HTML, CSS, JavaScript e logos ficam na raiz para evitar o problema de pastas achatadas durante upload pelo navegador.
-
-Veja `GITHUB_UPLOAD.txt`.
-
-## Backend Supabase
-
-O arquivo `SUPABASE_BACKEND_v1.0.zip` contém:
-
-- migration de celular/SMS;
-- cinco funções da conta/recuperação;
-- `nervi-read-goal-link` para leitura de anúncio;
-- `config.toml`;
-- comandos de deploy.
-
-O backend precisa ser aplicado no Supabase separadamente. Veja `SUPABASE_SETUP_v1.0.md`.
+O usuário pode solicitar uma conta, mas não recebe acesso imediatamente. A solicitação aparece em `public.nervi_account_access` com `status = pending`. O gerente altera o status para `approved` no Table Editor do Supabase. Veja `ADMIN_APROVACAO_CONTAS_v1.0.1.md`.

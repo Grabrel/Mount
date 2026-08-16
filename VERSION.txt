@@ -1,5 +1,16 @@
-Nervi / Cofrinho.exe
-Version: 1.0
-Build cache key: 100
-Frontend: flat root for GitHub Pages
-Goal linked listing: manual refresh only
+Nervi / Cofrinho.exe v1.1.2
+
+Principais mudanças:
+- apresentação do projeto antes da solicitação de conta;
+- página de boas-vindas no primeiro acesso aprovado;
+- LinkedIn do Gabriel incluído;
+- novas senhas: exatamente 6 números, sem sequências em ordem;
+- bloqueio após 3 tentativas incorretas, com desbloqueio exclusivo do gerente;
+- aviso de tentativas restantes no login;
+- “Lembrar de mim neste dispositivo” por sessão, sem armazenar senha em texto;
+- Sugestões com até 140 caracteres no menu de três pontos;
+- status administrativos: Nova, Lida, Em análise, Implementada;
+- feedback verde ✓ em ações concluídas;
+- aprovação manual de contas mantida;
+- Meta vinculada continua com atualização manual sob demanda;
+- sem Twilio/SMS.

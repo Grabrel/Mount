@@ -1,27 +1,17 @@
-NERVI v1.0 — UPLOAD NO GITHUB
-==============================
+NERVI v1.1.2 — UPLOAD NO GITHUB PAGES
 
-1. Extraia Nervi-v1.0-GitHub.zip no computador.
-2. Abra a raiz do repositório Nervi no GitHub.
-3. Envie os ARQUIVOS extraídos, não o ZIP principal fechado.
-4. Mantenha todo o frontend na raiz. Não crie pasta assets/.
-5. O arquivo SUPABASE_BACKEND_v1.0.zip deve permanecer compactado no GitHub.
+1. Extraia Nervi-v1.1.2-GitHub.zip.
+2. Envie TODOS os arquivos extraídos diretamente para a raiz do repositório Nervi.
+3. NÃO extraia SUPABASE_BACKEND_v1.1.2.zip dentro do GitHub.
+4. O site carrega diretamente da raiz:
+   - index.html
+   - style-v112.css
+   - app-v112.js
+   - logos/favicon
+5. Depois do deploy, teste:
+   https://grabrel.github.io/Nervi/style-v112.css
+   https://grabrel.github.io/Nervi/app-v112.js
+   https://grabrel.github.io/Nervi/logo-nervi.svg
 
-Arquivos essenciais do site na raiz:
-- index.html
-- style-v100.css
-- app-v100.js
-- favicon.svg
-- icon-nervi.svg
-- logo-nervi.svg
-- logo-nervi-dark.svg
-- logo-nervi-compact.svg
-- logo-nervi-compact-dark.svg
-- .nojekyll
-
-Depois do deploy, teste:
-https://grabrel.github.io/Nervi/style-v100.css
-https://grabrel.github.io/Nervi/app-v100.js
-https://grabrel.github.io/Nervi/logo-nervi.svg
-
-Os três endereços devem abrir sem 404.
+IMPORTANTE:
+Aplique primeiro o SQL/Edge Functions do backend v1.1.2 e só depois publique o frontend, para evitar incompatibilidade temporária no login.

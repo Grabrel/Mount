@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#B3261E">
-  <title>Nervi — Cofrinho.exe v1.0</title>
-  <meta name="nervi-version" content="1.0">
+  <title>Nervi — Cofrinho.exe v1.0.1</title>
+  <meta name="nervi-version" content="1.0.1">
   <script>
     try {
       document.documentElement.dataset.theme = localStorage.getItem("cofrinho_theme") || "light";
@@ -14,7 +14,7 @@
     }
   </script>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./style-v100.css?v=100">
+  <link rel="stylesheet" href="./style-v101.css?v=101">
 </head>
 <body>
   <noscript>O Cofrinho.exe precisa de JavaScript habilitado.</noscript>
@@ -62,11 +62,11 @@
 
             <div class="login-divider"><span>ou</span></div>
 
-            <button id="openCreateAccount" class="login-create" type="button">Criar conta</button>
+            <button id="openCreateAccount" class="login-create" type="button">Solicitar conta</button>
           </form>
 
           <div class="login-footer">
-            <span>Versão Beta 1.0</span>
+            <span>Versão Beta 1.0.1</span>
             <button class="login-help how-it-works" type="button">?</button>
           </div>
         </div>
@@ -74,7 +74,7 @@
     </section>
 
     <section id="recoveryScreen" class="screen login-screen hidden" aria-labelledby="recoveryTitle">
-      <div class="login-window recovery-window" role="region" aria-label="Redefinir senha">
+      <div class="login-window recovery-window" role="region" aria-label="Recuperação de senha">
         <div class="login-titlebar">
           <strong>Recuperação de senha</strong>
           <div class="theme-switch mini login-theme-switch" aria-label="Aparência">
@@ -88,37 +88,10 @@
             <img class="brand-logo dark-only" src="./logo-nervi-dark.svg" alt="Nervi — Cofrinho.exe">
           </div>
 
-          <div id="recoveryStepPhone" class="recovery-step">
-            <h2 id="recoveryTitle">Redefinir senha</h2>
-            <p class="muted">Informe o celular vinculado à sua conta.</p>
-            <label class="recovery-label">Celular
-              <input id="recoveryPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(11) 99999-9999">
-            </label>
-            <div id="recoveryPhoneMessage" class="login-message hidden"></div>
-            <button id="sendRecoveryCode" class="login-enter" type="button">Enviar código</button>
-          </div>
-
-          <div id="recoveryStepCode" class="recovery-step hidden">
-            <h2>Digite o código</h2>
-            <p class="muted">Se houver uma conta vinculada ao número informado, o código chegará por SMS.</p>
-            <label class="recovery-label">Código de 6 dígitos
-              <input id="recoveryCode" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000">
-            </label>
-            <div id="recoveryCodeMessage" class="login-message hidden"></div>
-            <button id="verifyRecoveryCode" class="login-enter" type="button">Continuar</button>
-            <button id="resendRecoveryCode" class="login-forgot" type="button">Reenviar código</button>
-          </div>
-
-          <div id="recoveryStepPassword" class="recovery-step hidden">
-            <h2>Criar nova senha</h2>
-            <label class="recovery-label">Nova senha
-              <input id="recoveryNewPassword" type="password" autocomplete="new-password" maxlength="128" placeholder="Mínimo de 6 caracteres">
-            </label>
-            <label class="recovery-label">Confirmar nova senha
-              <input id="recoveryConfirmPassword" type="password" autocomplete="new-password" maxlength="128" placeholder="Digite novamente">
-            </label>
-            <div id="recoveryPasswordMessage" class="login-message hidden"></div>
-            <button id="saveRecoveryPassword" class="login-enter" type="button">Salvar nova senha</button>
+          <div class="manual-recovery-card">
+            <h2 id="recoveryTitle">Esqueceu sua senha?</h2>
+            <p>Por enquanto, a redefinição de senha é feita manualmente pelo gerente da Nervi.</p>
+            <p class="muted">Entre em contato com o gerente e informe somente o seu nome de usuário. Nunca envie sua senha atual.</p>
           </div>
 
           <button id="backRecoveryToLogin" class="login-create recovery-back" type="button">← Voltar para entrar</button>
@@ -152,7 +125,7 @@
                 <button type="button" data-theme-choice="light">☀ Claro</button>
                 <button type="button" data-theme-choice="dark">☾ Escuro</button>
               </div>
-              <div class="status-pill beta-badge">Versão Beta 1.0</div>
+              <div class="status-pill beta-badge">Versão Beta 1.0.1</div>
             </div>
           </div>
 
@@ -171,10 +144,10 @@
               </label>
               <label>Senha de acesso<input id="setupPassword" type="password" autocomplete="new-password" maxlength="128" placeholder="Mínimo de 6 caracteres"></label>
               <label>Confirmar senha<input id="setupPasswordConfirm" type="password" autocomplete="new-password" maxlength="128" placeholder="Digite a senha novamente"></label>
-              <label>Celular
-                <input id="setupPhone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="(11) 99999-9999">
-                <small class="field-help">Use um celular brasileiro com DDD. Usado somente para recuperação de senha por SMS.</small>
-              </label>
+              <div class="account-approval-note">
+                <strong>🛡 Aprovação necessária</strong>
+                <span>Novas contas só ficam ativas depois da aprovação do gerente da Nervi. Sua solicitação será enviada para análise ao concluir o cadastro.</span>
+              </div>
               <label>Renda líquida mensal<input id="setupIncome" type="number" min="0" step="0.01" value="0"></label>
               <label>Dia de pagamento<input id="setupPayday" type="number" min="1" max="31" value="5"></label>
             </section>
@@ -254,7 +227,7 @@
           <div id="setupError" class="message error hidden"></div>
           <div class="setup-final-actions">
             <button id="backToLogin" class="button secondary" type="button">← Voltar para entrar</button>
-            <button id="setupCreate" class="button primary" type="button">Criar conta na Nervi</button>
+            <button id="setupCreate" class="button primary" type="button">Enviar solicitação de conta</button>
           </div>
         </div>
       </div>
@@ -341,6 +314,6 @@
   </dialog>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="./app-v100.js?v=100"></script>
+  <script src="./app-v101.js?v=101"></script>
 </body>
 </html>
