@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#B3261E">
+  <title>Nervi — Cofrinho.exe v1.1.2</title>
+  <meta name="nervi-version" content="1.1.2">
+  <script>
+    try {
+      document.documentElement.dataset.theme = localStorage.getItem("cofrinho_theme") || "light";
+    } catch (_) {
+      document.documentElement.dataset.theme = "light";
+    }
+  </script>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style-v112.css?v=112">
+</head>
+<body>
+  <noscript>O Cofrinho.exe precisa de JavaScript habilitado.</noscript>
+
+  <main id="app" class="app-shell">
+    <section id="loginScreen" class="screen login-screen" aria-labelledby="loginBrand">
+      <div class="login-window" role="region" aria-label="Entrar na Nervi">
+        <div class="login-titlebar">
+          <strong>Nervi</strong>
+          <div class="theme-switch mini login-theme-switch" aria-label="Aparência do login">
+            <button type="button" data-theme-choice="light" aria-label="Modo claro">☀</button>
+            <button type="button" data-theme-choice="dark" aria-label="Modo escuro">☾</button>
+          </div>
+        </div>
+
+        <div class="login-body">
+          <div class="login-brand" id="loginBrand">
+            <img class="brand-logo light-only" src="./logo-nervi.svg" alt="Nervi — Cofrinho.exe">
+            <img class="brand-logo dark-only" src="./logo-nervi-dark.svg" alt="Nervi — Cofrinho.exe">
+            <p class="brand-tagline">Seu dinheiro. Suas escolhas. Mais tranquilidade.</p>
+          </div>
+
+          <form id="loginForm" class="login-form">
+            <label>
+              Usuário
+              <input id="loginUsername" autocomplete="username" autocapitalize="none"
+                     spellcheck="false" maxlength="40" placeholder="seu usuário">
+            </label>
+
+            <label>
+              Senha
+              <div class="password-row">
+                <input id="loginPassword" type="password" autocomplete="current-password"
+                       maxlength="128" placeholder="sua senha">
+                <button id="toggleLoginPassword" class="password-eye" type="button"
+                        aria-label="Mostrar ou ocultar senha">◉</button>
+              </div>
+            </label>
+
+            <label class="remember-device-row">
+              <input id="rememberDevice" type="checkbox">
+              <span><strong>Lembrar de mim neste dispositivo</strong><small>Mantém sua sessão neste navegador. Não use em computadores compartilhados.</small></span>
+            </label>
+
+            <div class="login-attempt-note">🔐 Você tem até <strong>3 tentativas</strong> de senha. Após a terceira tentativa incorreta, somente o gerente da Nervi poderá desbloquear a conta.</div>
+
+            <button id="openPasswordRecovery" class="login-forgot" type="button">Esqueci minha senha</button>
+
+            <div id="loginError" class="login-message hidden"></div>
+
+            <button id="loginSubmit" class="login-enter" type="submit">Entrar</button>
+
+            <div class="login-divider"><span>ou</span></div>
+
+            <button id="openCreateAccount" class="login-create" type="button">Conhecer o projeto e solicitar acesso</button>
+          </form>
+
+          <div class="login-footer">
+            <span>Versão Beta 1.1.2</span>
+            <button class="login-help how-it-works" type="button">?</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="recoveryScreen" class="screen login-screen hidden" aria-labelledby="recoveryTitle">
+      <div class="login-window recovery-window" role="region" aria-label="Recuperação de senha">
+        <div class="login-titlebar">
+          <strong>Recuperação de senha</strong>
+          <div class="theme-switch mini login-theme-switch" aria-label="Aparência">
+            <button type="button" data-theme-choice="light" aria-label="Modo claro">☀</button>
+            <button type="button" data-theme-choice="dark" aria-label="Modo escuro">☾</button>
+          </div>
+        </div>
+        <div class="login-body">
+          <div class="login-brand recovery-brand">
+            <img class="brand-logo light-only" src="./logo-nervi.svg" alt="Nervi — Cofrinho.exe">
+            <img class="brand-logo dark-only" src="./logo-nervi-dark.svg" alt="Nervi — Cofrinho.exe">
+          </div>
+
+          <div class="manual-recovery-card">
+            <h2 id="recoveryTitle">Esqueceu sua senha?</h2>
+            <p>Por enquanto, a redefinição de senha é feita manualmente pelo gerente da Nervi.</p>
+            <p class="muted">Entre em contato com o gerente e informe somente o seu nome de usuário. Nunca envie sua senha atual.</p>
+          </div>
+
+          <button id="backRecoveryToLogin" class="login-create recovery-back" type="button">← Voltar para entrar</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="aboutScreen" class="screen login-screen hidden" aria-labelledby="aboutTitle">
+      <div class="window intro-window" role="region" aria-label="Conheça o Nervi">
+        <div class="titlebar">
+          <span>CONHEÇA O NERVI</span>
+          <div class="theme-switch mini" aria-label="Aparência">
+            <button type="button" data-theme-choice="light">☀</button>
+            <button type="button" data-theme-choice="dark">☾</button>
+          </div>
+        </div>
+        <div class="window-body intro-body">
+          <div class="intro-brand">
+            <img class="brand-logo light-only" src="./logo-nervi.svg" alt="Nervi — Cofrinho.exe">
+            <img class="brand-logo dark-only" src="./logo-nervi-dark.svg" alt="Nervi — Cofrinho.exe">
+            <p class="brand-tagline">Seu dinheiro. Suas escolhas. Mais tranquilidade.</p>
+          </div>
+          <div class="intro-hero-copy">
+            <span class="intro-kicker">Projeto fechado para amigos e colegas</span>
+            <h1 id="aboutTitle">Antes de solicitar acesso, conheça a ideia.</h1>
+            <p>O Nervi é um projeto pessoal para organizar renda, compromissos, gastos reais e metas de forma simples — com foco em entender quanto do dinheiro está realmente livre.</p>
+          </div>
+          <div class="intro-feature-grid">
+            <article><strong>① Planeje</strong><span>Cadastre renda, gastos previstos, vencimentos e prioridades.</span></article>
+            <article><strong>② Registre</strong><span>Informe o que realmente foi pago e compare previsto x realizado.</span></article>
+            <article><strong>③ Acompanhe</strong><span>Veja seu saldo livre e o progresso da sua meta financeira.</span></article>
+            <article><strong>④ Vincule metas</strong><span>Opcionalmente, cole um anúncio e consulte manualmente mudanças de preço.</span></article>
+          </div>
+          <div class="intro-author-card">
+            <h2>Bem-vindo(a) ao meu hobby.</h2>
+            <p>Sou o Gabriel, formado em Relações Internacionais e atualmente pós-graduando em Jornalismo pela FAAP. Criei este site para amigos e colegas que querem manter uma rotina financeira mais saudável.</p>
+            <p>Sou curioso por natureza e não tenho formação em programação — minha experiência na área vem de um curso de design de jogos e, principalmente, da vontade de aprender e experimentar.</p>
+            <p>Se encontrar algo que possa melhorar, tiver uma ideia ou quiser sugerir alguma coisa, use a aba <strong>Sugestões</strong>. Vou ler tudo com carinho e atenção.</p>
+            <a class="linkedin-link" href="https://www.linkedin.com/in/gabriel-almeida-12259b260" target="_blank" rel="noopener noreferrer">↗ LinkedIn do Gabriel</a>
+          </div>
+          <div class="intro-actions">
+            <button id="aboutBackToLogin" class="button secondary" type="button">← Já tenho conta</button>
+            <button id="aboutRequestAccess" class="button primary" type="button">Solicitar acesso à Nervi →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="welcomeScreen" class="screen login-screen hidden" aria-labelledby="welcomeTitle">
+      <div class="window intro-window welcome-window" role="region" aria-label="Boas-vindas à Nervi">
+        <div class="titlebar"><span>PRIMEIRO ACESSO</span></div>
+        <div class="window-body intro-body">
+          <div class="intro-brand">
+            <img class="brand-logo light-only" src="./logo-nervi.svg" alt="Nervi — Cofrinho.exe">
+            <img class="brand-logo dark-only" src="./logo-nervi-dark.svg" alt="Nervi — Cofrinho.exe">
+          </div>
+          <div class="intro-author-card welcome-card">
+            <span class="success-check-large" aria-hidden="true">✓</span>
+            <h1 id="welcomeTitle">Bem-vindo(a) ao meu hobby.</h1>
+            <p>Sou o Gabriel, formado em Relações Internacionais e atualmente pós-graduando em Jornalismo pela FAAP. Esse site é para um grupo fechado de amigos e colegas interessados em manter uma rotina financeira mais saudável.</p>
+            <p>Como sou curioso por natureza, não tenho formação em programação — apenas um curso em design de jogos e muita vontade de aprender. Se tiver qualquer sugestão de melhoria, basta usar a aba <strong>Sugestões</strong>. Vou ler com carinho e atenção.</p>
+            <p>Por fim, espero que aproveite!</p>
+            <a class="linkedin-link" href="https://www.linkedin.com/in/gabriel-almeida-12259b260" target="_blank" rel="noopener noreferrer">↗ www.linkedin.com/in/gabriel-almeida-12259b260</a>
+          </div>
+          <div class="intro-actions single-action">
+            <button id="finishWelcome" class="button primary" type="button">Começar a usar o Nervi →</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="setupScreen" class="screen hidden" aria-labelledby="setupTitle">
+      <div class="window hero-window">
+        <div class="titlebar">
+          <span id="setupTitle">Usuário - Plataforma Nervi</span>
+          <details class="window-menu-details">
+            <summary aria-label="Abrir menu">•••</summary>
+            <div class="window-menu-popover">
+              <button class="menu-action share-project" type="button">↗ Compartilhar projeto</button>
+              <button class="menu-action copy-project-link" type="button">⧉ Copiar link</button>
+              <button class="menu-action how-it-works" type="button">? Como funciona?</button>
+            </div>
+          </details>
+        </div>
+
+        <div class="window-body">
+          <div class="brand-row">
+            <div class="brand-lockup">
+              <img class="brand-logo setup-brand-logo light-only" src="./logo-nervi.svg" alt="Nervi — Cofrinho.exe">
+              <img class="brand-logo setup-brand-logo dark-only" src="./logo-nervi-dark.svg" alt="Nervi — Cofrinho.exe">
+              <p>Nervi — Seu dinheiro. Suas escolhas. Mais tranquilidade.</p>
+            </div>
+            <div class="brand-actions">
+              <div class="theme-switch" aria-label="Aparência">
+                <button type="button" data-theme-choice="light">☀ Claro</button>
+                <button type="button" data-theme-choice="dark">☾ Escuro</button>
+              </div>
+              <div class="status-pill beta-badge">Versão Beta 1.1.2</div>
+            </div>
+          </div>
+
+          <div class="setup-grid">
+            <section class="panel profile-panel">
+              <div class="profile-panel-heading">
+                <div id="setupProfilePhotoHero" class="profile-hero-photo"></div>
+                <div>
+                  <h2>Perfil</h2>
+                  <span class="muted">Sua identidade na plataforma Nervi.</span>
+                </div>
+              </div>
+              <label>Nome de usuário
+                <input id="setupUsername" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="40" placeholder="Ex.: gabriel">
+                <small class="field-help">Este será seu nome de acesso em qualquer dispositivo. Ele é único na Nervi; “Gabriel” e “gabriel” contam como o mesmo usuário.</small>
+              </label>
+              <label>Senha de acesso
+                <input id="setupPassword" type="password" inputmode="numeric" autocomplete="new-password" minlength="6" maxlength="6" pattern="[0-9]{6}" placeholder="6 números" aria-describedby="pinRules">
+                <small id="pinRules" class="field-help pin-rules"><strong>Use exatamente 6 números.</strong> Não são permitidas sequências em ordem, como 123456, 654321, 012345 ou 987654. As demais combinações ficam por sua escolha.</small>
+              </label>
+              <label>Confirmar senha<input id="setupPasswordConfirm" type="password" inputmode="numeric" autocomplete="new-password" minlength="6" maxlength="6" pattern="[0-9]{6}" placeholder="Repita os 6 números"></label>
+              <div class="account-approval-note">
+                <strong>🛡 Aprovação necessária</strong>
+                <span>Novas contas só ficam ativas depois da aprovação do gerente da Nervi. Sua solicitação será enviada para análise ao concluir o cadastro.</span>
+                <span>🔐 Após a aprovação, existem 3 tentativas de senha. Se as três forem usadas incorretamente, somente o gerente poderá desbloquear a conta.</span>
+              </div>
+              <label>Renda líquida mensal<input id="setupIncome" type="number" min="0" step="0.01" value="0"></label>
+              <label>Dia de pagamento<input id="setupPayday" type="number" min="1" max="31" value="5"></label>
+            </section>
+
+            <section class="panel">
+              <h2>🎯 Meta obrigatória</h2>
+              <label>Nome da meta<input id="setupGoalName" value="Minha reserva" maxlength="80"></label>
+              <label>Categoria
+                <select id="setupGoalCategory">
+                  <option>Emergência</option><option>Reserva de segurança</option><option>Objetivo pessoal</option>
+                  <option>Compra planejada</option><option>Viagem</option><option>Moradia</option>
+                </select>
+              </label>
+              <div class="goal-link-setup">
+                <label>Link da meta <span class="optional-label">(opcional)</span>
+                  <input id="setupGoalLink" type="url" inputmode="url" autocomplete="url" maxlength="1200" placeholder="https://loja.com/produto-ou-imovel">
+                  <small class="field-help">Cole o anúncio para o Nervi tentar identificar nome e preço. Depois, as atualizações só acontecem quando você pedir.</small>
+                </label>
+                <div class="goal-link-actions">
+                  <button id="setupReadGoalLink" class="button secondary" type="button">🔗 Ler anúncio</button>
+                </div>
+                <div id="setupGoalLinkPreview" class="goal-link-preview hidden" aria-live="polite"></div>
+              </div>
+              <label>Valor-alvo<input id="setupGoalTarget" type="number" min="0.01" step="0.01" value="1000"></label>
+              <div class="auto-reserve-card">
+                <span>Reserva automática por mês</span>
+                <strong id="setupGoalMonthlyDisplay">R$ 83,33</strong>
+                <small id="setupGoalMonthlyDetail">Calculada automaticamente pelo valor-alvo e duração.</small>
+              </div>
+              <label>Duração da meta
+                <select id="setupGoalDuration">
+                  <option value="3">3 meses</option>
+                  <option value="6">6 meses</option>
+                  <option value="12" selected>12 meses</option>
+                  <option value="18">18 meses</option>
+                  <option value="24">24 meses</option>
+                  <option value="36">36 meses</option>
+                </select>
+              </label>
+              <div class="cycle-lock-note">
+                🔒 Ao criar o perfil, nome de usuário, renda, dia de pagamento e os dados desta meta ficam bloqueados até o fim do ciclo.
+              </div>
+            </section>
+          </div>
+
+          <details id="setupPhotoDetails" class="panel collapsible-panel">
+            <summary>
+              <div class="summary-copy">
+                <strong>Foto de perfil</strong>
+                <span>Opcional — clique para escolher ou trocar.</span>
+              </div>
+              <div id="setupPhotoCompact" class="compact-photo"></div>
+            </summary>
+            <div class="collapsible-body">
+              <div id="setupPhotoPicker"></div>
+            </div>
+          </details>
+
+          <section class="panel">
+            <div class="panel-heading-row">
+              <div>
+                <h2>📋 Gastos previstos</h2>
+                <p class="muted">Cadastre compromissos que costumam aparecer todos os meses.</p>
+              </div>
+              <button id="setupAddPlanned" class="button secondary" type="button">+ Adicionar</button>
+            </div>
+            <div id="setupPlannedList" class="planned-editor-list"></div>
+          </section>
+
+          <section class="preview-box">
+            <div><span>Renda</span><strong id="setupPreviewIncome">R$ 0,00</strong></div>
+            <div><span>Caixinha</span><strong id="setupPreviewGoal">R$ 0,00</strong></div>
+            <div><span>Previstos</span><strong id="setupPreviewPlanned">R$ 0,00</strong></div>
+            <div><span>Livre previsto</span><strong id="setupPreviewFree">R$ 0,00</strong></div>
+          </section>
+
+          <div id="setupError" class="message error hidden"></div>
+          <div class="setup-final-actions">
+            <button id="backToLogin" class="button secondary" type="button">← Voltar para apresentação</button>
+            <button id="setupCreate" class="button primary" type="button">Enviar solicitação de conta</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mainScreen" class="screen hidden">
+      <header class="window app-header">
+        <div class="titlebar">
+          <span id="mainPlatformTitle">Usuário - Plataforma Nervi</span>
+          <details class="window-menu-details">
+            <summary aria-label="Abrir menu">•••</summary>
+            <div class="window-menu-popover">
+              <button class="menu-action share-project" type="button">↗ Compartilhar projeto</button>
+              <button class="menu-action copy-project-link" type="button">⧉ Copiar link</button>
+              <button class="menu-action how-it-works" type="button">? Como funciona?</button>
+              <button class="menu-action suggestion-action" type="button">✎ Sugestões</button>
+              <button class="menu-action sign-out-action" type="button">↩ Sair</button>
+            </div>
+          </details>
+        </div>
+        <div class="header-body">
+          <div class="main-brand-compact" aria-label="Nervi">
+            <img class="compact-logo light-only" src="./logo-nervi-compact.svg" alt="Nervi">
+            <img class="compact-logo dark-only" src="./logo-nervi-compact-dark.svg" alt="Nervi">
+          </div>
+          <div id="headerIdentity" class="header-identity"></div>
+          <div class="month-nav" aria-label="Selecionar mês">
+            <button id="prevMonthBtn" class="month-button" type="button" title="Mês anterior">◀</button>
+            <label class="month-label">Mês<input id="monthSelector" type="month"></label>
+            <button id="nextMonthBtn" class="month-button" type="button" title="Próximo mês">▶</button>
+            <button id="currentMonthBtn" class="month-button today" type="button">Mês atual</button>
+          </div>
+          <div class="header-actions">
+            <button id="notificationBell" class="notification-bell" type="button" aria-label="Abrir notificações" title="Notificações">
+              <span aria-hidden="true">🔔</span>
+              <span id="notificationBadge" class="notification-badge hidden">0</span>
+            </button>
+            <div class="theme-switch mini" aria-label="Aparência">
+              <button type="button" data-theme-choice="light">☀</button>
+              <button type="button" data-theme-choice="dark">☾</button>
+            </div>
+            <div class="header-note">Sincronizado com a Nervi Cloud.</div>
+          </div>
+        </div>
+      </header>
+
+      <div class="workspace">
+        <aside class="window sidebar">
+          <div class="titlebar">MENU</div>
+          <div class="sidebar-body">
+            <button class="nav-button active" data-view="dashboard">🏠 Início</button>
+            <button class="nav-button" data-view="planning">📋 Planejamento</button>
+            <button class="nav-button" data-view="expense">💸 Registrar gasto</button>
+            <button class="nav-button" id="registerIncomeBtn">💰 Registrar renda</button>
+            <button class="nav-button" data-view="goal">🎯 Minha meta</button>
+            <button class="nav-button" data-view="history">📜 Histórico</button>
+            <button class="nav-button" data-view="settings">⚙ Configurações</button>
+            <div class="sidebar-status">
+              <strong>STATUS</strong>
+              <span id="cloudStatusText" class="beta-status cloud-online">✓ Nervi Cloud</span>
+              <small id="cloudStatusDetail">Sincronização entre dispositivos ativa.</small>
+            </div>
+          </div>
+        </aside>
+        <section id="content" class="content"></section>
+      </div>
+
+      <button id="quickExpenseFab" class="quick-expense-fab" type="button"
+              aria-label="Registrar gasto rápido" title="Registrar gasto rápido">+</button>
+    </section>
+  </main>
+
+  <dialog id="confirmDialog" class="retro-dialog">
+    <form method="dialog">
+      <div class="titlebar">CONFIRMAR</div>
+      <div class="dialog-body"><p id="confirmText"></p><div class="dialog-actions"><button value="cancel" class="button secondary">Cancelar</button><button id="confirmOk" value="default" class="button primary">Confirmar</button></div></div>
+    </form>
+  </dialog>
+
+  <dialog id="formDialog" class="retro-dialog form-dialog">
+    <form id="dynamicDialogForm">
+      <div class="titlebar"><span id="formDialogTitle">EDITAR</span><button id="formDialogClose" class="dialog-close" type="button" aria-label="Fechar">×</button></div>
+      <div id="formDialogBody" class="dialog-body"></div>
+    </form>
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="./app-v112.js?v=112"></script>
+</body>
+</html>
