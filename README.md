@@ -1,72 +1,106 @@
-# Nervi — Cofrinho.exe Web v0.6
+# Nervi — Cofrinho.exe Web v0.7
 
-A v0.6 conecta a Nervi ao Supabase e transforma o perfil local em uma conta sincronizada.
+**Nervi — Seu dinheiro. Suas escolhas. Mais tranquilidade.**
 
-## Login
+Esta pasta é a versão organizada para ser enviada diretamente para a raiz do repositório GitHub do Nervi.
 
-A interface continua mostrando somente:
+## Novidades da v0.7
 
-- Usuário
-- Senha
-- Entrar
-- Criar conta
+- nova identidade visual Nervi com símbolo/pulso em forma de `N`;
+- slogan oficial da marca;
+- logo adequada para modo claro e modo escuro;
+- seletor claro/escuro já na tela de login;
+- mensagem `Usuário incorreto.` quando o usuário não existe;
+- mensagem `Senha incorreta.` quando o usuário existe e a senha não confere;
+- cadastro de celular;
+- recuperação de senha **somente por SMS**;
+- código de 6 dígitos, expiração, limite de tentativas e token de uso único;
+- campo de celular no perfil/configurações;
+- preservação da base financeira v0.6: sincronização, histórico, metas, vencimentos, prioridades, foto e backup.
 
-O usuário não precisa informar e-mail nem telefone.
+## Estrutura
 
-Internamente a Nervi gera um identificador de autenticação a partir do nome de usuário e usa Supabase Auth com senha.
+```text
+Nervi-v0.7-github/
+├── index.html
+├── .nojekyll
+├── .gitignore
+├── README.md
+├── assets/
+│   ├── brand/
+│   │   ├── favicon.svg
+│   │   ├── icon-nervi.svg
+│   │   ├── logo-nervi.svg
+│   │   ├── logo-nervi-dark.svg
+│   │   ├── logo-nervi-compact.svg
+│   │   └── logo-nervi-compact-dark.svg
+│   ├── css/
+│   │   └── app.css
+│   └── js/
+│       └── app.js
+├── docs/
+│   └── brand/
+│       └── identidade-nervi.png
+└── supabase/
+    ├── README.md
+    ├── sql/
+    │   └── 01_nervi_sms_recovery.sql
+    └── functions/
+        ├── .env.example
+        ├── _shared/
+        │   ├── nervi.ts
+        │   └── README.md
+        ├── nervi-create-account/index.ts
+        ├── nervi-check-username/index.ts
+        ├── nervi-request-password-reset/index.ts
+        ├── nervi-verify-reset-code/index.ts
+        └── nervi-reset-password/index.ts
+```
 
-## Criar conta
+## Publicar no GitHub Pages
 
-Ao clicar em **Criar conta na Nervi**:
+Envie **o conteúdo desta pasta** para a raiz do repositório `Nervi`. O `index.html` já aponta para `assets/css/app.css` e `assets/js/app.js`, e `.nojekyll` deve permanecer na raiz.
 
-1. a Edge Function `nervi-create-account` cria o usuário no Supabase Auth;
-2. o estado financeiro inicial é salvo em `cofrinho_state`;
-3. o banco atualiza `profiles` e `goal_cycles`;
-4. a sessão é iniciada e a conta é carregada da nuvem.
+A parte visual/financeira pode ser publicada pelo GitHub Pages imediatamente. Para o fluxo de SMS funcionar, configure também a pasta `supabase/` conforme `supabase/README.md`.
 
-A chave administrativa do Supabase não fica no GitHub Pages. O navegador usa apenas a Publishable Key.
+## Onde cada imagem da marca é usada
 
-## Usuários únicos
+- `logo-nervi.svg`: login/setup em modo claro;
+- `logo-nervi-dark.svg`: login/setup em modo escuro;
+- `logo-nervi-compact.svg`: cabeçalho interno claro;
+- `logo-nervi-compact-dark.svg`: cabeçalho interno escuro;
+- `icon-nervi.svg`: ícone reduzido da marca;
+- `favicon.svg`: aba do navegador;
+- `docs/brand/identidade-nervi.png`: prancha de referência da identidade, **não** usada como logo dentro da interface.
 
-O mesmo usuário não pode ser criado duas vezes.
+## Identidade
 
-Maiúsculas/minúsculas são normalizadas no acesso, portanto `Gabriel` e `gabriel` representam o mesmo login.
+Cor de destaque principal: `#B3261E`.
 
-## Sincronização entre dispositivos
+Frase oficial:
 
-Depois do login, cada alteração é salva:
+> Nervi — Seu dinheiro. Suas escolhas. Mais tranquilidade.
 
-- no `localStorage`, como cache deste navegador;
-- no `cofrinho_state`, como estado oficial sincronizado.
+## Recuperação de senha
 
-Ao entrar em outro dispositivo com o mesmo usuário e senha, a Nervi baixa o estado da conta no Supabase.
+O Nervi não oferece recuperação por e-mail. O único fluxo é:
 
-## Migração automática das versões v0.5.x
+```text
+Celular → SMS → código de 6 dígitos → nova senha
+```
 
-Se existe uma conta criada localmente na v0.5.x, tente entrar na v0.6 usando o mesmo usuário e senha.
+A tela não confirma se um telefone está ou não cadastrado.
 
-Se a credencial local for válida e o usuário ainda não existir na Nervi Cloud, a conta é criada no Supabase e o estado local é enviado automaticamente.
+## Configuração do Supabase
 
-## Banco
+Leia:
 
-- `profiles`: identidade e dados principais do perfil
-- `goal_cycles`: ciclos das metas
-- `cofrinho_state`: estado financeiro sincronizado
-- RLS por `user_id`
-- travas dos dados do ciclo no banco
-- reserva mensal calculada automaticamente
+```text
+supabase/README.md
+```
 
-## Publicação
+Antes de publicar as Edge Functions, configure o banco e os secrets de SMS. Nunca coloque credenciais privadas do Supabase ou da Twilio dentro de `assets/js/app.js`.
 
-Suba na raiz do repositório Nervi:
+## Compatibilidade
 
-- `index.html`
-- `style-v060.css`
-- `app-v060.js`
-- `README.md`
-
-Mantenha `.nojekyll`.
-
-Site:
-
-`https://grabrel.github.io/Nervi/`
+A v0.7 parte da v0.6 do Nervi Cloud e mantém o armazenamento local como cache, com `cofrinho_state` como estado sincronizado. Contas antigas podem adicionar o celular depois do login; novas contas na interface v0.7 exigem celular.

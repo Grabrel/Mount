@@ -12,7 +12,8 @@
       document.documentElement.dataset.theme = "light";
     }
   </script>
-  <link rel="stylesheet" href="./style-v060.css?v=060">
+  <link rel="icon" href="./assets/brand/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/css/app.css?v=070">
 </head>
 <body>
   <noscript>O Cofrinho.exe precisa de JavaScript habilitado.</noscript>
@@ -22,13 +23,17 @@
       <div class="login-window" role="region" aria-label="Entrar na Nervi">
         <div class="login-titlebar">
           <strong>Nervi</strong>
-          <span>●</span>
+          <div class="theme-switch mini login-theme-switch" aria-label="Aparência do login">
+            <button type="button" data-theme-choice="light" aria-label="Modo claro">☀</button>
+            <button type="button" data-theme-choice="dark" aria-label="Modo escuro">☾</button>
+          </div>
         </div>
 
         <div class="login-body">
           <div class="login-brand" id="loginBrand">
-            <div class="login-nervi">Nervi</div>
-            <div class="login-product">Cofrinho.exe</div>
+            <img class="brand-logo light-only" src="./assets/brand/logo-nervi.svg" alt="Nervi — Cofrinho.exe">
+            <img class="brand-logo dark-only" src="./assets/brand/logo-nervi-dark.svg" alt="Nervi — Cofrinho.exe">
+            <p class="brand-tagline">Seu dinheiro. Suas escolhas. Mais tranquilidade.</p>
           </div>
 
           <form id="loginForm" class="login-form">
@@ -48,6 +53,8 @@
               </div>
             </label>
 
+            <button id="openPasswordRecovery" class="login-forgot" type="button">Esqueci minha senha</button>
+
             <div id="loginError" class="login-message hidden"></div>
 
             <button id="loginSubmit" class="login-enter" type="submit">Entrar</button>
@@ -58,9 +65,62 @@
           </form>
 
           <div class="login-footer">
-            <span>Versão Beta 0.6</span>
+            <span>Versão Beta 0.7</span>
             <button class="login-help how-it-works" type="button">?</button>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="recoveryScreen" class="screen login-screen hidden" aria-labelledby="recoveryTitle">
+      <div class="login-window recovery-window" role="region" aria-label="Redefinir senha">
+        <div class="login-titlebar">
+          <strong>Recuperação de senha</strong>
+          <div class="theme-switch mini login-theme-switch" aria-label="Aparência">
+            <button type="button" data-theme-choice="light" aria-label="Modo claro">☀</button>
+            <button type="button" data-theme-choice="dark" aria-label="Modo escuro">☾</button>
+          </div>
+        </div>
+        <div class="login-body">
+          <div class="login-brand recovery-brand">
+            <img class="brand-logo light-only" src="./assets/brand/logo-nervi.svg" alt="Nervi — Cofrinho.exe">
+            <img class="brand-logo dark-only" src="./assets/brand/logo-nervi-dark.svg" alt="Nervi — Cofrinho.exe">
+          </div>
+
+          <div id="recoveryStepPhone" class="recovery-step">
+            <h2 id="recoveryTitle">Redefinir senha</h2>
+            <p class="muted">Informe o celular vinculado à sua conta.</p>
+            <label class="recovery-label">Celular
+              <input id="recoveryPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(11) 99999-9999">
+            </label>
+            <div id="recoveryPhoneMessage" class="login-message hidden"></div>
+            <button id="sendRecoveryCode" class="login-enter" type="button">Enviar código</button>
+          </div>
+
+          <div id="recoveryStepCode" class="recovery-step hidden">
+            <h2>Digite o código</h2>
+            <p class="muted">Se houver uma conta vinculada ao número informado, o código chegará por SMS.</p>
+            <label class="recovery-label">Código de 6 dígitos
+              <input id="recoveryCode" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="000000">
+            </label>
+            <div id="recoveryCodeMessage" class="login-message hidden"></div>
+            <button id="verifyRecoveryCode" class="login-enter" type="button">Continuar</button>
+            <button id="resendRecoveryCode" class="login-forgot" type="button">Reenviar código</button>
+          </div>
+
+          <div id="recoveryStepPassword" class="recovery-step hidden">
+            <h2>Criar nova senha</h2>
+            <label class="recovery-label">Nova senha
+              <input id="recoveryNewPassword" type="password" autocomplete="new-password" maxlength="128" placeholder="Mínimo de 6 caracteres">
+            </label>
+            <label class="recovery-label">Confirmar nova senha
+              <input id="recoveryConfirmPassword" type="password" autocomplete="new-password" maxlength="128" placeholder="Digite novamente">
+            </label>
+            <div id="recoveryPasswordMessage" class="login-message hidden"></div>
+            <button id="saveRecoveryPassword" class="login-enter" type="button">Salvar nova senha</button>
+          </div>
+
+          <button id="backRecoveryToLogin" class="login-create recovery-back" type="button">← Voltar para entrar</button>
         </div>
       </div>
     </section>
@@ -82,16 +142,16 @@
         <div class="window-body">
           <div class="brand-row">
             <div class="brand-lockup">
-              <div class="nervi-wordmark">Nervi</div>
-              <div class="product-mark">Cofrinho.exe</div>
-              <p>Planejamento financeiro local, simples e direto.</p>
+              <img class="brand-logo setup-brand-logo light-only" src="./assets/brand/logo-nervi.svg" alt="Nervi — Cofrinho.exe">
+              <img class="brand-logo setup-brand-logo dark-only" src="./assets/brand/logo-nervi-dark.svg" alt="Nervi — Cofrinho.exe">
+              <p>Nervi — Seu dinheiro. Suas escolhas. Mais tranquilidade.</p>
             </div>
             <div class="brand-actions">
               <div class="theme-switch" aria-label="Aparência">
                 <button type="button" data-theme-choice="light">☀ Claro</button>
                 <button type="button" data-theme-choice="dark">☾ Escuro</button>
               </div>
-              <div class="status-pill beta-badge">Versão Beta 0.6</div>
+              <div class="status-pill beta-badge">Versão Beta 0.7</div>
             </div>
           </div>
 
@@ -110,6 +170,10 @@
               </label>
               <label>Senha de acesso<input id="setupPassword" type="password" autocomplete="new-password" maxlength="128" placeholder="Mínimo de 6 caracteres"></label>
               <label>Confirmar senha<input id="setupPasswordConfirm" type="password" autocomplete="new-password" maxlength="128" placeholder="Digite a senha novamente"></label>
+              <label>Celular
+                <input id="setupPhone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="(11) 99999-9999">
+                <small class="field-help">Usado somente para recuperação de senha por SMS.</small>
+              </label>
               <label>Renda líquida mensal<input id="setupIncome" type="number" min="0" step="0.01" value="0"></label>
               <label>Dia de pagamento<input id="setupPayday" type="number" min="1" max="31" value="5"></label>
             </section>
@@ -200,6 +264,10 @@
           </details>
         </div>
         <div class="header-body">
+          <div class="main-brand-compact" aria-label="Nervi">
+            <img class="compact-logo light-only" src="./assets/brand/logo-nervi-compact.svg" alt="Nervi">
+            <img class="compact-logo dark-only" src="./assets/brand/logo-nervi-compact-dark.svg" alt="Nervi">
+          </div>
           <div id="headerIdentity" class="header-identity"></div>
           <div class="month-nav" aria-label="Selecionar mês">
             <button id="prevMonthBtn" class="month-button" type="button" title="Mês anterior">◀</button>
@@ -216,7 +284,7 @@
               <button type="button" data-theme-choice="light">☀</button>
               <button type="button" data-theme-choice="dark">☾</button>
             </div>
-            <div class="header-note">Seus dados ficam neste navegador.</div>
+            <div class="header-note">Sincronizado com a Nervi Cloud.</div>
           </div>
         </div>
       </header>
@@ -259,6 +327,6 @@
   </dialog>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="./app-v060.js?v=060"></script>
+  <script src="./assets/js/app.js?v=070"></script>
 </body>
 </html>
