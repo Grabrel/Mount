@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#B3261E">
-  <title>Nervi — Cofrinho.exe v1.1.2</title>
-  <meta name="nervi-version" content="1.1.2">
+  <title>Nervi — Cofrinho.exe v1.1.3</title>
+  <meta name="nervi-version" content="1.1.3">
   <script>
     try {
       document.documentElement.dataset.theme = localStorage.getItem("cofrinho_theme") || "light";
@@ -14,7 +14,7 @@
     }
   </script>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./style-v112.css?v=112">
+  <link rel="stylesheet" href="./style-v113.css?v=113">
 </head>
 <body>
   <noscript>O Cofrinho.exe precisa de JavaScript habilitado.</noscript>
@@ -50,7 +50,7 @@
                 <input id="loginPassword" type="password" autocomplete="current-password"
                        maxlength="128" placeholder="sua senha">
                 <button id="toggleLoginPassword" class="password-eye" type="button"
-                        aria-label="Mostrar ou ocultar senha">◉</button>
+                        aria-label="Mostrar ou ocultar senha">👁</button>
               </div>
             </label>
 
@@ -73,7 +73,7 @@
           </form>
 
           <div class="login-footer">
-            <span>Versão Beta 1.1.2</span>
+            <span>Versão Beta 1.1.3</span>
             <button class="login-help how-it-works" type="button">?</button>
           </div>
         </div>
@@ -196,7 +196,7 @@
                 <button type="button" data-theme-choice="light">☀ Claro</button>
                 <button type="button" data-theme-choice="dark">☾ Escuro</button>
               </div>
-              <div class="status-pill beta-badge">Versão Beta 1.1.2</div>
+              <div class="status-pill beta-badge">Versão Beta 1.1.3</div>
             </div>
           </div>
 
@@ -209,15 +209,34 @@
                   <span class="muted">Sua identidade na plataforma Nervi.</span>
                 </div>
               </div>
-              <label>Nome de usuário
-                <input id="setupUsername" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="40" placeholder="Ex.: gabriel">
-                <small class="field-help">Este será seu nome de acesso em qualquer dispositivo. Ele é único na Nervi; “Gabriel” e “gabriel” contam como o mesmo usuário.</small>
+              <label>
+                <span>Nome de usuário</span>
+                <div class="field-stack">
+                  <input id="setupUsername" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="40" placeholder="Ex.: gabriel" aria-describedby="setupUsernameHelp setupUsernameStatus">
+                  <small id="setupUsernameHelp" class="field-help">Este será seu nome de acesso em qualquer dispositivo. Ele é único na Nervi; “Gabriel” e “gabriel” contam como o mesmo usuário.</small>
+                  <small id="setupUsernameStatus" class="field-status" aria-live="polite"></small>
+                </div>
               </label>
-              <label>Senha de acesso
-                <input id="setupPassword" type="password" inputmode="numeric" autocomplete="new-password" minlength="6" maxlength="6" pattern="[0-9]{6}" placeholder="6 números" aria-describedby="pinRules">
-                <small id="pinRules" class="field-help pin-rules"><strong>Use exatamente 6 números.</strong> Não são permitidas sequências em ordem, como 123456, 654321, 012345 ou 987654. As demais combinações ficam por sua escolha.</small>
+              <label>
+                <span>Senha de acesso</span>
+                <div class="field-stack">
+                  <div class="password-row setup-password-row">
+                    <input id="setupPassword" type="password" inputmode="numeric" autocomplete="new-password" minlength="6" maxlength="6" pattern="[0-9]{6}" placeholder="6 números" aria-describedby="pinRules">
+                    <button class="password-eye" type="button" data-password-toggle="setupPassword" aria-label="Mostrar ou ocultar senha">👁</button>
+                  </div>
+                  <small id="pinRules" class="field-help pin-rules"><strong>Use exatamente 6 números.</strong> Não são permitidas sequências em ordem, como 123456, 654321, 012345 ou 987654. As demais combinações ficam por sua escolha.</small>
+                </div>
               </label>
-              <label>Confirmar senha<input id="setupPasswordConfirm" type="password" inputmode="numeric" autocomplete="new-password" minlength="6" maxlength="6" pattern="[0-9]{6}" placeholder="Repita os 6 números"></label>
+              <label>
+                <span>Confirmar senha</span>
+                <div class="field-stack">
+                  <div class="password-row setup-password-row">
+                    <input id="setupPasswordConfirm" type="password" inputmode="numeric" autocomplete="new-password" minlength="6" maxlength="6" pattern="[0-9]{6}" placeholder="Repita os 6 números" aria-describedby="setupPinMatchStatus">
+                    <button class="password-eye" type="button" data-password-toggle="setupPasswordConfirm" aria-label="Mostrar ou ocultar confirmação da senha">👁</button>
+                  </div>
+                  <small id="setupPinMatchStatus" class="field-status" aria-live="polite"></small>
+                </div>
+              </label>
               <div class="account-approval-note">
                 <strong>🛡 Aprovação necessária</strong>
                 <span>Novas contas só ficam ativas depois da aprovação do gerente da Nervi. Sua solicitação será enviada para análise ao concluir o cadastro.</span>
@@ -236,17 +255,42 @@
                   <option>Compra planejada</option><option>Viagem</option><option>Moradia</option>
                 </select>
               </label>
-              <div class="goal-link-setup">
-                <label>Link da meta <span class="optional-label">(opcional)</span>
-                  <input id="setupGoalLink" type="url" inputmode="url" autocomplete="url" maxlength="1200" placeholder="https://loja.com/produto-ou-imovel">
-                  <small class="field-help">Cole o anúncio para o Nervi tentar identificar nome e preço. Depois, as atualizações só acontecem quando você pedir.</small>
-                </label>
-                <div class="goal-link-actions">
-                  <button id="setupReadGoalLink" class="button secondary" type="button">🔗 Ler anúncio</button>
+              <div class="goal-value-mode" role="radiogroup" aria-labelledby="setupGoalModeLabel">
+                <strong id="setupGoalModeLabel">Como deseja definir o valor da meta?</strong>
+                <div class="goal-mode-options">
+                  <label class="goal-mode-option">
+                    <input type="radio" name="setupGoalMode" value="link">
+                    <span><strong>🔗 Usar link de um anúncio</strong><small>O Nervi lê o preço e define o valor da meta automaticamente.</small></span>
+                  </label>
+                  <label class="goal-mode-option">
+                    <input type="radio" name="setupGoalMode" value="manual" checked>
+                    <span><strong>✏️ Informar valor manualmente</strong><small>Você escolhe o valor-alvo sem vincular anúncio.</small></span>
+                  </label>
                 </div>
-                <div id="setupGoalLinkPreview" class="goal-link-preview hidden" aria-live="polite"></div>
               </div>
-              <label>Valor-alvo<input id="setupGoalTarget" type="number" min="0.01" step="0.01" value="1000"></label>
+              <div id="setupGoalLinkMode" class="goal-mode-section hidden">
+                <div class="goal-link-setup">
+                  <label>
+                    <span>Link da meta</span>
+                    <div class="field-stack">
+                      <input id="setupGoalLink" type="url" inputmode="url" autocomplete="url" maxlength="1200" placeholder="https://loja.com/produto-ou-imovel">
+                      <small class="field-help">Cole o anúncio para o Nervi identificar o preço. Depois, as atualizações só acontecem quando você pedir.</small>
+                    </div>
+                  </label>
+                  <div class="goal-link-actions">
+                    <button id="setupReadGoalLink" class="button secondary" type="button">🔗 Ler anúncio</button>
+                  </div>
+                  <div id="setupGoalLinkPreview" class="goal-link-preview hidden" aria-live="polite"></div>
+                  <div id="setupLinkedTargetCard" class="linked-target-card hidden" aria-live="polite">
+                    <span>Valor da meta</span>
+                    <strong id="setupLinkedTargetDisplay">—</strong>
+                    <small>Definido pelo preço encontrado no anúncio. Não há campo de edição manual neste modo.</small>
+                  </div>
+                </div>
+              </div>
+              <div id="setupGoalManualMode" class="goal-mode-section">
+                <label>Valor-alvo<input id="setupGoalTarget" type="number" min="0.01" step="0.01" value="1000"></label>
+              </div>
               <div class="auto-reserve-card">
                 <span>Reserva automática por mês</span>
                 <strong id="setupGoalMonthlyDisplay">R$ 83,33</strong>
@@ -390,6 +434,6 @@
   </dialog>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="./app-v112.js?v=112"></script>
+  <script src="./app-v113.js?v=113"></script>
 </body>
 </html>

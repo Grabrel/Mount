@@ -1,8 +1,13 @@
-# Nervi — Cofrinho.exe v1.1.2
+# Nervi — Cofrinho.exe v1.1.3
 
 Aplicativo financeiro pessoal para um grupo fechado de amigos e colegas, hospedado no GitHub Pages e sincronizado via Supabase.
 
-## Destaques da v1.1.2
+## Destaques da v1.1.3
+
+- criação de meta agora é exclusiva: **link de anúncio OU valor manual**;
+- ao usar anúncio com preço BRL, o preço vira o valor da meta automaticamente e o campo manual não é exibido;
+- nome de usuário ganha validação automática: verde + `✓ Nome de usuário disponível` quando livre;
+- cadastro mostra `✓ As senhas são iguais` e permite visualizar/ocultar os dois PINs pelo botão de olho;
 
 - apresentação pública do projeto antes da solicitação de acesso;
 - primeiro acesso com página de boas-vindas e apresentação do Gabriel;
@@ -21,8 +26,8 @@ Aplicativo financeiro pessoal para um grupo fechado de amigos e colegas, hospeda
 
 ## Publicação no GitHub Pages
 
-O frontend continua totalmente plano. Extraia `Nervi-v1.1.2-GitHub.zip` e envie os arquivos diretamente para a raiz do repositório.
+O frontend continua totalmente plano. Extraia `Nervi-v1.1.3-GitHub.zip` e envie os arquivos diretamente para a raiz do repositório.
 
-Não extraia `SUPABASE_BACKEND_v1.1.2.zip` dentro do GitHub.
+Não extraia `SUPABASE_BACKEND_v1.1.3.zip` dentro do GitHub.
 
-Leia `SUPABASE_SETUP_v1.1.2.md` antes de aplicar o backend.
+**Esta revisão não exige nova migration nem novo deploy do Supabase.** O backend já publicado na v1.1.2 é compatível; o ZIP de backend permanece no pacote apenas como referência/backup.
