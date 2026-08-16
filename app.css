@@ -1024,7 +1024,7 @@ input:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px c
 }
 
 /* ==========================================================
-   v0.7 — Identidade Nervi + recuperação por SMS
+   v0.7.1 — Identidade Nervi + recuperação por SMS
    ========================================================== */
 
 .light-only { display: block; }

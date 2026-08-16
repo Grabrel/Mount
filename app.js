@@ -5,9 +5,9 @@
   const LEGACY_STORAGE_KEYS = ["cofrinho_web_v03", "cofrinho_web_v02", "cofrinho_web_v01"];
   const THEME_KEY = "cofrinho_theme";
   const LOCAL_AUTH_KEY = "nervi_local_auth_v051";
-  const APP_VERSION = "0.7.0";
+  const APP_VERSION = "0.7.1";
   window.COFRINHO_VERSION = APP_VERSION;
-  const PUBLIC_VERSION = "Versão Beta 0.7";
+  const PUBLIC_VERSION = "Versão Beta 0.7.1";
 
   const SUPABASE_URL = "https://exyxxbytvryxgvpsldyu.supabase.co";
   const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_EPp_GMPgCVpbU8y_5IUG7w_LmpXlKW3";

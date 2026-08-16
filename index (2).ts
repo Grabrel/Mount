@@ -89,7 +89,7 @@ Deno.serve(async (req) => {
     const startDate = /^\d{4}-\d{2}-\d{2}$/.test(String(goal.startDate || "")) ? String(goal.startDate) : todayISO();
     const endDate = addMonthsISO(startDate, duration);
 
-    state.version = "0.7.0";
+    state.version = "0.7.1";
     state.profile = {
       ...profile,
       username,

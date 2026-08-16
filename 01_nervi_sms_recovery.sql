@@ -1,4 +1,4 @@
--- Nervi / Cofrinho.exe v0.7
+-- Nervi / Cofrinho.exe v0.7.1
 -- Atualização incremental para celular + recuperação de senha por SMS.
 -- Execute no SQL Editor do projeto Supabase do Nervi APÓS revisar o arquivo.
 -- Não apaga contas, cofrinho_state, histórico nem ciclos existentes.

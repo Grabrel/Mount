@@ -1,14 +1,14 @@
-# Nervi — Cofrinho.exe Web v0.7
+# Nervi — Cofrinho.exe Web v0.7.1
 
 > [!IMPORTANT]
-> **GitHub Pages:** envie o conteúdo desta pasta diretamente para a raiz do repositório. O `index.html` deve ficar lado a lado com a pasta `assets/`. Não coloque tudo dentro de uma pasta `Nervi-v0.7-github/` no repositório. Se testar localmente, extraia o ZIP antes de abrir o `index.html`.
+> **GitHub Pages:** envie o conteúdo desta pasta diretamente para a raiz do repositório. O `index.html` deve ficar lado a lado com a pasta `assets/`. Não coloque tudo dentro de uma pasta `Nervi-v0.7.1-github/` no repositório. Se testar localmente, extraia o ZIP antes de abrir o `index.html`.
 
 
 **Nervi — Seu dinheiro. Suas escolhas. Mais tranquilidade.**
 
 Esta pasta é a versão organizada para ser enviada diretamente para a raiz do repositório GitHub do Nervi.
 
-## Novidades da v0.7
+## Novidades da v0.7.1
 
 - nova identidade visual Nervi com símbolo/pulso em forma de `N`;
 - slogan oficial da marca;
@@ -25,7 +25,7 @@ Esta pasta é a versão organizada para ser enviada diretamente para a raiz do r
 ## Estrutura
 
 ```text
-Nervi-v0.7-github/
+Nervi-v0.7.1-github/
 ├── index.html
 ├── .nojekyll
 ├── .gitignore
@@ -60,6 +60,11 @@ Nervi-v0.7-github/
         ├── nervi-verify-reset-code/index.ts
         └── nervi-reset-password/index.ts
 ```
+
+
+## Como confirmar que a atualização entrou
+
+Depois do deploy, a tela deve mostrar **Versão Beta 0.7.1**. Os arquivos públicos usam o cache-buster `?v=071`, então esta revisão não reutiliza o CSS/JavaScript da v0.7. Se o GitHub Pages ainda mostrar 0.7, confirme que o commit contém este `VERSION.txt` e faça uma atualização forçada da página.
 
 ## Publicar no GitHub Pages
 
@@ -107,4 +112,4 @@ Antes de publicar as Edge Functions, configure o banco e os secrets de SMS. Nunc
 
 ## Compatibilidade
 
-A v0.7 parte da v0.6 do Nervi Cloud e mantém o armazenamento local como cache, com `cofrinho_state` como estado sincronizado. Contas antigas podem adicionar o celular depois do login; novas contas na interface v0.7 exigem celular.
+A v0.7.1 parte da v0.6 do Nervi Cloud e mantém o armazenamento local como cache, com `cofrinho_state` como estado sincronizado. Contas antigas podem adicionar o celular depois do login; novas contas na interface v0.7.1 exigem celular.

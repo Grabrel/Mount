@@ -1,4 +1,4 @@
-# Backend Supabase — Nervi v0.7
+# Backend Supabase — Nervi v0.7.1
 
 Esta pasta versiona a parte de backend necessária para **celular + recuperação de senha por SMS**.
 
@@ -58,7 +58,7 @@ Os secrets do próprio Supabase são disponibilizados pelo runtime. Não copie `
 
 ## 5. Usuário errado x senha errada
 
-A v0.7 inclui `nervi-check-username` para permitir as mensagens solicitadas no login:
+A v0.7.1 inclui `nervi-check-username` para permitir as mensagens solicitadas no login:
 
 - `Usuário incorreto.`
 - `Senha incorreta.`
@@ -67,4 +67,4 @@ Isso significa que o sistema deliberadamente permite verificar se um **nome de u
 
 ## 6. Usuários antigos
 
-Contas antigas podem continuar com `phone_e164` vazio até adicionarem um celular em **Configurações**. Novas contas criadas pela interface v0.7 exigem um celular válido com DDD.
+Contas antigas podem continuar com `phone_e164` vazio até adicionarem um celular em **Configurações**. Novas contas criadas pela interface v0.7.1 exigem um celular válido com DDD.
