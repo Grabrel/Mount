@@ -1,70 +1,69 @@
-# Backend Supabase — Nervi v0.7.1
+# Nervi — Cofrinho.exe Web v0.8
 
-Esta pasta versiona a parte de backend necessária para **celular + recuperação de senha por SMS**.
+**Nervi — Seu dinheiro. Suas escolhas. Mais tranquilidade.**
 
-> A pasta pode ficar no GitHub. **Segredos reais não podem.** O arquivo `.env.example` contém apenas nomes e placeholders.
+## Por que a v0.8 existe
 
-## 1. Banco de dados
+A v0.8 mantém as funcionalidades da v0.7.1, mas volta o **frontend inteiro para a raiz do repositório** para evitar erros 404 no GitHub Pages quando o upload pelo navegador achata pastas.
 
-No projeto Supabase do Nervi, abra o SQL Editor, revise e execute:
+Não existe pasta `assets/` nesta versão. O `index.html`, CSS, JavaScript, favicon e todas as logos ficam lado a lado na raiz.
 
-```text
-supabase/sql/01_nervi_sms_recovery.sql
-```
-
-O script é incremental: adiciona `phone_e164`, cria as tabelas de códigos/sessões de recuperação e atualiza a função que sincroniza `cofrinho_state` com `profiles`.
-
-## 2. Edge Functions
-
-Implante estas funções no projeto Nervi:
+## Arquivos que devem aparecer na raiz do GitHub
 
 ```text
-nervi-create-account
-nervi-check-username
-nervi-request-password-reset
-nervi-verify-reset-code
-nervi-reset-password
+index.html
+style-v080.css
+app-v080.js
+favicon.svg
+icon-nervi.svg
+logo-nervi.svg
+logo-nervi-dark.svg
+logo-nervi-compact.svg
+logo-nervi-compact-dark.svg
+identidade-nervi.png
+README.md
+VERSION.txt
+GITHUB_UPLOAD.txt
+.nojekyll
+SUPABASE_BACKEND_v0.8.zip
 ```
 
-Todas usam o módulo compartilhado:
+O arquivo `SUPABASE_BACKEND_v0.8.zip` é apenas o backend versionado. O GitHub Pages não precisa abri-lo para o site funcionar.
+
+## Publicação no GitHub Pages
+
+O Pages deve continuar configurado em:
+
+- Source: `Deploy from a branch`
+- Branch: `main`
+- Folder: `/(root)`
+
+Depois do upload, teste estas URLs:
 
 ```text
-supabase/functions/_shared/nervi.ts
+https://grabrel.github.io/Nervi/style-v080.css
+https://grabrel.github.io/Nervi/app-v080.js
+https://grabrel.github.io/Nervi/logo-nervi.svg
 ```
 
-Elas são chamadas **antes de existir uma sessão autenticada** (criação de conta, consulta de usuário e recuperação), portanto devem ser publicadas como funções públicas, com a validação customizada do `apikey` já implementada no código.
+As três devem abrir sem 404.
 
-## 3. Secrets
+## Recursos mantidos
 
-Cadastre como Secrets das Edge Functions:
+- Supabase / Nervi Cloud;
+- sincronização entre dispositivos;
+- prioridades Essencial, Importante e Flexível;
+- vencimentos e status dos gastos previstos;
+- histórico mensal;
+- metas e ciclos;
+- foto de perfil;
+- modo claro e escuro, inclusive no login;
+- mensagens separadas para usuário e senha incorretos;
+- celular associado à conta;
+- recuperação de senha somente por SMS;
+- código de 6 dígitos, validade, tentativas e intervalo de reenvio;
+- identidade visual Nervi e slogan oficial.
 
-- `NERVI_OTP_PEPPER`: valor longo, aleatório e exclusivo;
-- `TWILIO_ACCOUNT_SID`;
-- `TWILIO_AUTH_TOKEN` **ou** `TWILIO_API_KEY` + `TWILIO_API_SECRET`;
-- `TWILIO_FROM` **ou** `TWILIO_MESSAGING_SERVICE_SID`.
+## Backend
 
-Os secrets do próprio Supabase são disponibilizados pelo runtime. Não copie `service_role`/secret key para o frontend.
-
-## 4. Comportamento da recuperação
-
-1. O usuário informa o celular.
-2. A resposta da tela é neutra, sem confirmar se aquele celular existe.
-3. Se houver uma conta, é criado um código de 6 dígitos com validade de 10 minutos.
-4. O código salvo no banco é somente um hash com pepper.
-5. Há intervalo mínimo de 60 segundos e limite de solicitações.
-6. Após validar o código, o usuário recebe um token curto de redefinição.
-7. A troca da senha ocorre somente na Edge Function com privilégio administrativo.
-8. Código e token são de uso único.
-
-## 5. Usuário errado x senha errada
-
-A v0.7.1 inclui `nervi-check-username` para permitir as mensagens solicitadas no login:
-
-- `Usuário incorreto.`
-- `Senha incorreta.`
-
-Isso significa que o sistema deliberadamente permite verificar se um **nome de usuário** existe. A tela de recuperação por celular continua neutra e não informa se um número está cadastrado.
-
-## 6. Usuários antigos
-
-Contas antigas podem continuar com `phone_e164` vazio até adicionarem um celular em **Configurações**. Novas contas criadas pela interface v0.7.1 exigem um celular válido com DDD.
+O backend completo está em `SUPABASE_BACKEND_v0.8.zip`. Extraia esse ZIP apenas quando precisar versionar/aplicar SQL ou Edge Functions do Supabase. Credenciais privadas de SMS nunca devem ser adicionadas ao frontend ou ao GitHub Pages.

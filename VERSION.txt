@@ -1,3 +1,4 @@
 Nervi / Cofrinho.exe
-Version: 0.7.1
-Build cache key: 071
+Version: 0.8
+Build cache key: 080
+Frontend layout: flat-root

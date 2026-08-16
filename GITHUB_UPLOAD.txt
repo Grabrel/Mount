@@ -1,21 +1,19 @@
-NERVI v0.7.1 — COMO SUBIR NO GITHUB PAGES
+NERVI v0.8 — UPLOAD NO GITHUB PAGES
 
-IMPORTANTE: envie o CONTEÚDO desta pasta para a RAIZ do repositório.
+1. Extraia Nervi-v0.8-GitHub.zip no computador.
+2. Entre no repositório Nervi no GitHub.
+3. Na raiz da branch main, use Add file > Upload files.
+4. Envie TODOS os arquivos extraídos. Nesta versão não há pasta assets.
+5. Confirme que index.html, style-v080.css, app-v080.js e logo-nervi.svg aparecem diretamente na raiz.
+6. Commit changes.
+7. Aguarde o GitHub Pages publicar.
 
-A raiz do GitHub precisa ficar assim:
+TESTE APÓS O DEPLOY:
+https://grabrel.github.io/Nervi/style-v080.css
+https://grabrel.github.io/Nervi/app-v080.js
+https://grabrel.github.io/Nervi/logo-nervi.svg
 
-index.html
-.nojekyll
-assets/
-supabase/
-docs/
-README.md
-PROJECT_STRUCTURE.txt
+Se qualquer um der 404, o arquivo não chegou à raiz do repositório.
 
-O arquivo abaixo PRECISA existir no GitHub exatamente neste caminho:
-assets/css/app.css
-
-E a logo precisa existir em:
-assets/brand/logo-nervi.svg
-
-Se estiver testando no computador, EXTRAIA o ZIP primeiro. Não abra o index.html diretamente de dentro do ZIP.
+IMPORTANTE:
+SUPABASE_BACKEND_v0.8.zip deve permanecer como UM arquivo ZIP no repositório. Não extraia esse backend durante o upload normal do site pelo navegador.
