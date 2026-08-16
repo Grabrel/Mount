@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#B3261E">
-  <title>Nervi — Cofrinho.exe v0.8</title>
-  <meta name="nervi-version" content="0.8">
+  <title>Nervi — Cofrinho.exe v1.0</title>
+  <meta name="nervi-version" content="1.0">
   <script>
     try {
       document.documentElement.dataset.theme = localStorage.getItem("cofrinho_theme") || "light";
@@ -14,7 +14,7 @@
     }
   </script>
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./style-v080.css?v=080">
+  <link rel="stylesheet" href="./style-v100.css?v=100">
 </head>
 <body>
   <noscript>O Cofrinho.exe precisa de JavaScript habilitado.</noscript>
@@ -66,7 +66,7 @@
           </form>
 
           <div class="login-footer">
-            <span>Versão Beta 0.8</span>
+            <span>Versão Beta 1.0</span>
             <button class="login-help how-it-works" type="button">?</button>
           </div>
         </div>
@@ -152,7 +152,7 @@
                 <button type="button" data-theme-choice="light">☀ Claro</button>
                 <button type="button" data-theme-choice="dark">☾ Escuro</button>
               </div>
-              <div class="status-pill beta-badge">Versão Beta 0.8</div>
+              <div class="status-pill beta-badge">Versão Beta 1.0</div>
             </div>
           </div>
 
@@ -173,7 +173,7 @@
               <label>Confirmar senha<input id="setupPasswordConfirm" type="password" autocomplete="new-password" maxlength="128" placeholder="Digite a senha novamente"></label>
               <label>Celular
                 <input id="setupPhone" type="tel" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="(11) 99999-9999">
-                <small class="field-help">Usado somente para recuperação de senha por SMS.</small>
+                <small class="field-help">Use um celular brasileiro com DDD. Usado somente para recuperação de senha por SMS.</small>
               </label>
               <label>Renda líquida mensal<input id="setupIncome" type="number" min="0" step="0.01" value="0"></label>
               <label>Dia de pagamento<input id="setupPayday" type="number" min="1" max="31" value="5"></label>
@@ -188,6 +188,16 @@
                   <option>Compra planejada</option><option>Viagem</option><option>Moradia</option>
                 </select>
               </label>
+              <div class="goal-link-setup">
+                <label>Link da meta <span class="optional-label">(opcional)</span>
+                  <input id="setupGoalLink" type="url" inputmode="url" autocomplete="url" maxlength="1200" placeholder="https://loja.com/produto-ou-imovel">
+                  <small class="field-help">Cole o anúncio para o Nervi tentar identificar nome e preço. Depois, as atualizações só acontecem quando você pedir.</small>
+                </label>
+                <div class="goal-link-actions">
+                  <button id="setupReadGoalLink" class="button secondary" type="button">🔗 Ler anúncio</button>
+                </div>
+                <div id="setupGoalLinkPreview" class="goal-link-preview hidden" aria-live="polite"></div>
+              </div>
               <label>Valor-alvo<input id="setupGoalTarget" type="number" min="0.01" step="0.01" value="1000"></label>
               <div class="auto-reserve-card">
                 <span>Reserva automática por mês</span>
@@ -310,6 +320,9 @@
         </aside>
         <section id="content" class="content"></section>
       </div>
+
+      <button id="quickExpenseFab" class="quick-expense-fab" type="button"
+              aria-label="Registrar gasto rápido" title="Registrar gasto rápido">+</button>
     </section>
   </main>
 
@@ -328,6 +341,6 @@
   </dialog>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-  <script src="./app-v080.js?v=080"></script>
+  <script src="./app-v100.js?v=100"></script>
 </body>
 </html>

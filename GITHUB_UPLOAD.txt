@@ -1,19 +1,27 @@
-NERVI v0.8 — UPLOAD NO GITHUB PAGES
+NERVI v1.0 — UPLOAD NO GITHUB
+==============================
 
-1. Extraia Nervi-v0.8-GitHub.zip no computador.
-2. Entre no repositório Nervi no GitHub.
-3. Na raiz da branch main, use Add file > Upload files.
-4. Envie TODOS os arquivos extraídos. Nesta versão não há pasta assets.
-5. Confirme que index.html, style-v080.css, app-v080.js e logo-nervi.svg aparecem diretamente na raiz.
-6. Commit changes.
-7. Aguarde o GitHub Pages publicar.
+1. Extraia Nervi-v1.0-GitHub.zip no computador.
+2. Abra a raiz do repositório Nervi no GitHub.
+3. Envie os ARQUIVOS extraídos, não o ZIP principal fechado.
+4. Mantenha todo o frontend na raiz. Não crie pasta assets/.
+5. O arquivo SUPABASE_BACKEND_v1.0.zip deve permanecer compactado no GitHub.
 
-TESTE APÓS O DEPLOY:
-https://grabrel.github.io/Nervi/style-v080.css
-https://grabrel.github.io/Nervi/app-v080.js
+Arquivos essenciais do site na raiz:
+- index.html
+- style-v100.css
+- app-v100.js
+- favicon.svg
+- icon-nervi.svg
+- logo-nervi.svg
+- logo-nervi-dark.svg
+- logo-nervi-compact.svg
+- logo-nervi-compact-dark.svg
+- .nojekyll
+
+Depois do deploy, teste:
+https://grabrel.github.io/Nervi/style-v100.css
+https://grabrel.github.io/Nervi/app-v100.js
 https://grabrel.github.io/Nervi/logo-nervi.svg
 
-Se qualquer um der 404, o arquivo não chegou à raiz do repositório.
-
-IMPORTANTE:
-SUPABASE_BACKEND_v0.8.zip deve permanecer como UM arquivo ZIP no repositório. Não extraia esse backend durante o upload normal do site pelo navegador.
+Os três endereços devem abrir sem 404.

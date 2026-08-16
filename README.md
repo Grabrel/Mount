@@ -1,69 +1,73 @@
-# Nervi — Cofrinho.exe Web v0.8
+# Nervi — Cofrinho.exe v1.0
 
 **Nervi — Seu dinheiro. Suas escolhas. Mais tranquilidade.**
 
-## Por que a v0.8 existe
+A v1.0 consolida a base anterior e adiciona **Meta vinculada**: o usuário pode associar opcionalmente um anúncio de produto, serviço ou imóvel à meta e consultar o preço sob demanda.
 
-A v0.8 mantém as funcionalidades da v0.7.1, mas volta o **frontend inteiro para a raiz do repositório** para evitar erros 404 no GitHub Pages quando o upload pelo navegador achata pastas.
+## Principais recursos
 
-Não existe pasta `assets/` nesta versão. O `index.html`, CSS, JavaScript, favicon e todas as logos ficam lado a lado na raiz.
+- Nervi Cloud com Supabase;
+- login por usuário e senha;
+- mensagens separadas para usuário incorreto e senha incorreta;
+- recuperação de senha somente por celular/SMS;
+- tema claro/escuro já no login;
+- foto de perfil;
+- gastos previstos com vencimento e prioridades Essencial, Importante e Flexível;
+- botão flutuante `+` para registrar gasto rapidamente;
+- atalho `Ctrl/Cmd + Shift + G`;
+- dashboard com destaque para **Livre de verdade**;
+- metas/ciclos e histórico;
+- backup JSON;
+- **Meta vinculada com leitura manual de anúncio**.
 
-## Arquivos que devem aparecer na raiz do GitHub
+## Meta vinculada
 
-```text
-index.html
-style-v080.css
-app-v080.js
-favicon.svg
-icon-nervi.svg
-logo-nervi.svg
-logo-nervi-dark.svg
-logo-nervi-compact.svg
-logo-nervi-compact-dark.svg
-identidade-nervi.png
-README.md
-VERSION.txt
-GITHUB_UPLOAD.txt
-.nojekyll
-SUPABASE_BACKEND_v0.8.zip
-```
+Na criação da conta, o campo **Link da meta** é opcional.
 
-O arquivo `SUPABASE_BACKEND_v0.8.zip` é apenas o backend versionado. O GitHub Pages não precisa abri-lo para o site funcionar.
+Ao informar um link e clicar em **Ler anúncio**, o Nervi tenta encontrar:
+
+- título do anúncio;
+- preço principal;
+- tipo de preço (compra, venda, aluguel mensal ou serviço mensal);
+- custos adicionais reconhecidos, como condomínio e IPTU;
+- disponibilidade da página.
+
+Quando um preço é identificado durante a criação da conta, ele preenche automaticamente o **Valor-alvo**. O usuário ainda pode ajustar o valor antes de criar a conta.
+
+Depois que o ciclo existe, a atualização do anúncio é **somente manual** pelo botão **↻ Atualizar preço**. Não existe Cron nem monitoramento automático.
+
+O Nervi não altera automaticamente o valor-alvo de um ciclo em andamento. Ele compara o preço atual do anúncio com o valor-alvo e mostra a diferença.
+
+O histórico de preço registra somente mudanças reais; verificações sem alteração atualizam apenas a data da última consulta.
+
+## Estados do anúncio
+
+- 🟢 Disponível
+- 🟡 Preço não identificado
+- 🔴 Anúncio indisponível
+- 🔒 Consulta bloqueada pelo site
+- ⚠ Não foi possível verificar
+
+Se uma consulta falhar, o último preço conhecido é preservado.
+
+## Limitações de leitura
+
+Alguns sites usam CAPTCHA, proteção anti-bot ou carregam todos os dados por JavaScript. Nesses casos, a leitura pode falhar. A função não executa JavaScript do anúncio e nunca deve inventar um preço.
 
 ## Publicação no GitHub Pages
 
-O Pages deve continuar configurado em:
+O frontend é propositalmente **flat**: HTML, CSS, JavaScript e logos ficam na raiz para evitar o problema de pastas achatadas durante upload pelo navegador.
 
-- Source: `Deploy from a branch`
-- Branch: `main`
-- Folder: `/(root)`
+Veja `GITHUB_UPLOAD.txt`.
 
-Depois do upload, teste estas URLs:
+## Backend Supabase
 
-```text
-https://grabrel.github.io/Nervi/style-v080.css
-https://grabrel.github.io/Nervi/app-v080.js
-https://grabrel.github.io/Nervi/logo-nervi.svg
-```
+O arquivo `SUPABASE_BACKEND_v1.0.zip` contém:
 
-As três devem abrir sem 404.
+- migration de celular/SMS;
+- cinco funções da conta/recuperação;
+- `nervi-read-goal-link` para leitura de anúncio;
+- `config.toml`;
+- comandos de deploy.
 
-## Recursos mantidos
-
-- Supabase / Nervi Cloud;
-- sincronização entre dispositivos;
-- prioridades Essencial, Importante e Flexível;
-- vencimentos e status dos gastos previstos;
-- histórico mensal;
-- metas e ciclos;
-- foto de perfil;
-- modo claro e escuro, inclusive no login;
-- mensagens separadas para usuário e senha incorretos;
-- celular associado à conta;
-- recuperação de senha somente por SMS;
-- código de 6 dígitos, validade, tentativas e intervalo de reenvio;
-- identidade visual Nervi e slogan oficial.
-
-## Backend
-
-O backend completo está em `SUPABASE_BACKEND_v0.8.zip`. Extraia esse ZIP apenas quando precisar versionar/aplicar SQL ou Edge Functions do Supabase. Credenciais privadas de SMS nunca devem ser adicionadas ao frontend ou ao GitHub Pages.
+O backend precisa ser aplicado no Supabase separadamente. Veja `SUPABASE_SETUP_v1.0.md`.

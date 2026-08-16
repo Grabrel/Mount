@@ -1,4 +1,5 @@
 Nervi / Cofrinho.exe
-Version: 0.8
-Build cache key: 080
-Frontend layout: flat-root
+Version: 1.0
+Build cache key: 100
+Frontend: flat root for GitHub Pages
+Goal linked listing: manual refresh only
